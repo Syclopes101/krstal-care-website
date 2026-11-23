@@ -23,11 +23,12 @@ export function ServiceAreasAndHours() {
               Gauteng Mobile Coverage
             </span>
             <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-[#0A2240] sm:text-4xl">
-              Rooted in Lenasia. Travelling Across Johannesburg.
+              100% Mobile Service Across Johannesburg &amp; Gauteng.
             </h2>
             <p className="mt-3 text-base text-slate-600">
-              Drop off garments at our Lenasia Extension 11 branch or book a mobile deep-cleaning
-              crew directly to your home, apartment, or office anywhere across these Gauteng regions.
+              We are a mobile cleaning &amp; garment-care business dispatched from Lenasia Ext 11—our
+              equipped teams travel directly to your home, apartment, or office across Gauteng, with
+              door-to-door collection and delivery for laundry, dry cleaning, dyeing &amp; sneakers.
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -55,9 +56,9 @@ export function ServiceAreasAndHours() {
           <div className="lg:col-span-5">
             <div className="overflow-hidden rounded-3xl border border-teal-200/80 bg-white shadow-lg shadow-teal-950/5">
               <div className="bg-gradient-to-r from-[#0A2240] to-teal-700 px-6 py-5 text-white sm:px-8">
-                <h3 className="font-display text-2xl font-extrabold">Visit or Contact Our Branch</h3>
+                <h3 className="font-display text-2xl font-extrabold">Mobile Dispatch &amp; Booking Desk</h3>
                 <p className="mt-0.5 text-xs font-medium text-teal-100">
-                  {BUSINESS_INFO.legalName}
+                  {BUSINESS_INFO.legalName} · Mobile Service Business
                 </p>
               </div>
 
@@ -68,7 +69,7 @@ export function ServiceAreasAndHours() {
                   </div>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                      Branch Address
+                      Mobile Dispatch Base
                     </p>
                     <p className="mt-0.5 text-sm font-semibold text-slate-900">
                       {BUSINESS_INFO.address}
@@ -141,11 +142,11 @@ export function ServiceAreasAndHours() {
                 <div className="grid grid-cols-2 gap-3 border-t border-slate-100 pt-5">
                   <div className="flex items-center gap-2 rounded-xl bg-indigo-50 px-3 py-2.5 text-xs font-bold text-indigo-900">
                     <CreditCard className="h-4 w-4 text-indigo-600 shrink-0" />
-                    Card Payments
+                    Mobile Card Payments
                   </div>
                   <div className="flex items-center gap-2 rounded-xl bg-amber-50 px-3 py-2.5 text-xs font-bold text-amber-900">
                     <Car className="h-4 w-4 text-amber-600 shrink-0" />
-                    Branch Parking
+                    Door-to-Door Mobile
                   </div>
                 </div>
               </div>

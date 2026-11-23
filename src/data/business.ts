@@ -161,10 +161,10 @@ export const BUSINESS_INFO = {
     { days: 'Saturday – Sunday', time: '8:00 AM – 2:00 PM' },
   ],
   amenities: [
-    'Mobile Onsite & Collection',
+    'Mobile Onsite Teams',
+    'Door-to-Door Collection & Delivery',
     'Card Payments Accepted',
     'Once-Off & Regular Contracts',
-    'Branch Parking Available',
   ],
 };
 
@@ -474,7 +474,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
       'Take laundry day off your plate. Everyday garments and household bed linen washed hygienically, pressed neatly, and folded ready for your cupboard.',
     method: 'Temperature-Sorted Wash, Soften & Steam Press',
     turnaround: '24–48 hour standard turnaround',
-    modeTag: 'Collection / Drop-Off',
+    modeTag: 'Mobile Collection & Delivery',
     priceFrom: 'From R45',
     pricedRates: [
       { item: 'Wash & Fold', priceLabel: 'R45', priceValue: 45 },
@@ -572,7 +572,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
       'Keep knitwear shape intact and outerwear crisp without shrinkage or pilling, ready for Gauteng’s chilly winter mornings.',
     method: 'Shape-Safe Knit & Coat Care',
     turnaround: '48–72 hours',
-    modeTag: 'Collection / Drop-Off',
+    modeTag: 'Mobile Collection & Delivery',
     priceFrom: 'From R140',
     pricedRates: [
       { item: 'Lumber Jackets', priceLabel: 'R140', priceValue: 140 },
@@ -696,8 +696,8 @@ export const SERVICE_CATALOG: ServiceItem[] = [
 export const SERVICE_AREAS = [
   {
     name: 'Lenasia & Lenasia South',
-    badge: 'Home Base · Ext 11',
-    note: 'Same-day drop-off at 14 Dharwar St & rapid mobile dispatch across all extensions.',
+    badge: 'Mobile Dispatch · Ext 11',
+    note: 'Rapid mobile dispatch across all extensions plus convenient door-to-door garment collection & delivery.',
   },
   {
     name: 'Joburg South',
@@ -749,9 +749,9 @@ export const REVIEW_HIGHLIGHTS = [
 
 export const FAQS = [
   {
-    question: 'Do you come to my home or office, or do I drop items off in Lenasia?',
+    question: 'Are you a mobile cleaning business that comes to my home or office?',
     answer:
-      'Both! Our mobile teams travel across Lenasia, Joburg South, Sandton, Rosebank, Randburg, and the East Rand to deep-clean carpets, couches, mattresses, tile & grout, curtains, and offices onsite. For laundry, dry cleaning, clothing dyeing, and sneaker care, you can drop off at 14 Dharwar St, Lenasia Ext 11 (with parking available) or arrange convenient collection and delivery.',
+      'Yes! We are a mobile cleaning and garment-care business. Our equipped teams travel directly to homes and offices across Lenasia, Joburg South, Sandton, Rosebank, Randburg, and the East Rand to deep-clean carpets, couches, mattresses, tile & grout, curtains, and offices onsite. For laundry, dry cleaning, clothing dyeing, and sneaker care, we offer convenient door-to-door collection and delivery (or scheduled Lenasia Ext 11 dispatch).',
   },
   {
     question: 'How long do carpets, couches, and mattresses take to dry?',

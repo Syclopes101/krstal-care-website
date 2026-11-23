@@ -25,7 +25,10 @@ interface QuoteBuilderProps {
   onClearQuantities: () => void;
 }
 
-type ServiceMode = 'Mobile Onsite Cleaning' | 'Collection & Delivery' | 'Drop-off at Lenasia Branch';
+type ServiceMode =
+  | 'Mobile Onsite Cleaning (We Come to You)'
+  | 'Door-to-Door Collection & Delivery'
+  | 'Scheduled Lenasia Ext 11 Drop-off';
 type FrequencyType = 'Once-off Service' | 'Weekly / Bi-weekly Regular' | 'Monthly Commercial Contract';
 
 const SUBURBS = [
@@ -45,7 +48,7 @@ export function QuoteBuilder({
   onClearServices,
   onClearQuantities,
 }: QuoteBuilderProps) {
-  const [mode, setMode] = useState<ServiceMode>('Mobile Onsite Cleaning');
+  const [mode, setMode] = useState<ServiceMode>('Mobile Onsite Cleaning (We Come to You)');
   const [frequency, setFrequency] = useState<FrequencyType>('Once-off Service');
   const [suburb, setSuburb] = useState(SUBURBS[0]);
   const [preferredDate, setPreferredDate] = useState('');
@@ -279,10 +282,14 @@ export function QuoteBuilder({
                       onChange={(e) => setMode(e.target.value as ServiceMode)}
                       className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     >
-                      <option value="Mobile Onsite Cleaning">Mobile Onsite Cleaning</option>
-                      <option value="Collection & Delivery">Collection &amp; Delivery</option>
-                      <option value="Drop-off at Lenasia Branch">
-                        Drop-off at Lenasia Branch (14 Dharwar St)
+                      <option value="Mobile Onsite Cleaning (We Come to You)">
+                        Mobile Onsite Cleaning (We Come to You)
+                      </option>
+                      <option value="Door-to-Door Collection & Delivery">
+                        Door-to-Door Collection &amp; Delivery
+                      </option>
+                      <option value="Scheduled Lenasia Ext 11 Drop-off">
+                        Scheduled Lenasia Ext 11 Drop-off (14 Dharwar St)
                       </option>
                     </select>
                   </div>
