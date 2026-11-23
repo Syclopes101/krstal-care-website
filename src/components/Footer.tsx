@@ -1,4 +1,4 @@
-import { MapPin, Phone, Clock, MessageCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/business';
 
 export function Footer() {
@@ -8,29 +8,17 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div className="lg:col-span-1">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-600/20 ring-1 ring-teal-500/40">
-                  <svg viewBox="0 0 36 36" className="h-6 w-6" aria-hidden="true">
-                    <path
-                      d="M18 4L27.5 17.5C29.5 20.5 28.5 28 18 31C7.5 28 6.5 20.5 8.5 17.5L18 4Z"
-                      fill="#0D9488"
-                    />
-                    <path
-                      d="M18 10L23 17.5C24 19.5 23.2 24.2 18 26C12.8 24.2 12 19.5 13 17.5L18 10Z"
-                      fill="#5EEAD4"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <span className="font-display block text-lg font-extrabold text-white">
-                    Krystal Care
-                  </span>
-                  <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-teal-400">
-                    Cleaners (Pty) Ltd
-                  </span>
-                </div>
+              <div className="inline-block rounded-2xl bg-white px-3 py-2 shadow-sm">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/krystal-logo.png`}
+                  alt="Krystal Care Cleaners logo"
+                  className="h-11 w-auto object-contain"
+                />
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-slate-400">
+              <p className="mt-3 text-xs font-bold uppercase tracking-wider text-emerald-400">
+                {BUSINESS_INFO.brandMotto}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">
                 Mobile cleaning, upholstery restoration, laundry, dry cleaning, clothing dyeing, and
                 sneaker care across Lenasia, Johannesburg, and Gauteng.
               </p>
@@ -57,8 +45,8 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href="#services" className="hover:text-teal-300 transition-colors">
-                    Laundry, Dry Cleaning &amp; Indian Outfits
+                  <a href="#pricing-results" className="hover:text-teal-300 transition-colors">
+                    Official ZAR Price Menu &amp; Results
                   </a>
                 </li>
                 <li>
@@ -82,6 +70,12 @@ export function Footer() {
                   <Phone className="h-4 w-4 shrink-0 text-teal-400" />
                   <a href={BUSINESS_INFO.phoneHref} className="hover:text-white">
                     {BUSINESS_INFO.phoneDisplay}
+                  </a>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Mail className="h-4 w-4 shrink-0 text-teal-400" />
+                  <a href={BUSINESS_INFO.emailHref} className="hover:text-white">
+                    {BUSINESS_INFO.email}
                   </a>
                 </li>
                 <li className="flex items-center gap-2.5">
@@ -132,7 +126,7 @@ export function Footer() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Krystal Care Cleaners on WhatsApp"
-        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-teal-600 px-4 py-3 text-sm font-bold text-white shadow-xl shadow-teal-900/30 hover:bg-teal-700 hover:scale-105 transition-all"
+        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-4 py-3 text-sm font-bold text-white shadow-xl shadow-sky-950/30 hover:scale-105 transition-all"
       >
         <MessageCircle className="h-5 w-5" />
         <span className="hidden sm:inline">WhatsApp Us</span>

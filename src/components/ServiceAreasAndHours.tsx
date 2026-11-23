@@ -121,13 +121,19 @@ export function ServiceAreasAndHours() {
                   </div>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                      Phone &amp; WhatsApp
+                      Phone, WhatsApp &amp; Email
                     </p>
                     <a
                       href={BUSINESS_INFO.phoneHref}
-                      className="mt-0.5 inline-block text-base font-bold text-[#0A2240] hover:text-teal-700"
+                      className="mt-0.5 block text-base font-bold text-[#0A2240] hover:text-teal-700"
                     >
                       {BUSINESS_INFO.phoneDisplay}
+                    </a>
+                    <a
+                      href={BUSINESS_INFO.emailHref}
+                      className="mt-0.5 block text-sm font-semibold text-[#00388B] hover:underline"
+                    >
+                      {BUSINESS_INFO.email}
                     </a>
                   </div>
                 </div>

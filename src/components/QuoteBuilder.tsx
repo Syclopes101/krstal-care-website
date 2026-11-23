@@ -1,19 +1,28 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useMemo, type FormEvent } from 'react';
 import {
   Check,
   MessageCircle,
   Send,
   Phone,
+  Mail,
   CheckCircle2,
   Copy,
   Sparkles,
+  Trash2,
 } from 'lucide-react';
-import { BUSINESS_INFO, COLOR_THEMES, SERVICE_CATALOG } from '../data/business';
+import {
+  BUSINESS_INFO,
+  COLOR_THEMES,
+  RATE_CARD_SECTIONS,
+  SERVICE_CATALOG,
+} from '../data/business';
 
 interface QuoteBuilderProps {
   selectedServiceIds: string[];
+  itemizedQuantities: Record<string, number>;
   onToggleService: (id: string) => void;
   onClearServices: () => void;
+  onClearQuantities: () => void;
 }
 
 type ServiceMode = 'Mobile Onsite Cleaning' | 'Collection & Delivery' | 'Drop-off at Lenasia Branch';
@@ -31,8 +40,10 @@ const SUBURBS = [
 
 export function QuoteBuilder({
   selectedServiceIds,
+  itemizedQuantities,
   onToggleService,
   onClearServices,
+  onClearQuantities,
 }: QuoteBuilderProps) {
   const [mode, setMode] = useState<ServiceMode>('Mobile Onsite Cleaning');
   const [frequency, setFrequency] = useState<FrequencyType>('Once-off Service');
@@ -48,12 +59,50 @@ export function QuoteBuilder({
     (s) => s.title
   );
 
+  const { pricedItemsList, estimatedTotal } = useMemo(() => {
+    const list: { label: string; subtotalText: string }[] = [];
+    let total = 0;
+
+    for (const cat of RATE_CARD_SECTIONS) {
+      for (const item of cat.items) {
+        const qty = itemizedQuantities[item.id] ?? 0;
+        if (qty > 0) {
+          if (item.priceValue !== null) {
+            const sub = item.priceValue * qty;
+            total += sub;
+            list.push({
+              label: `${qty}× ${item.name} (${item.priceLabel})`,
+              subtotalText: `R${sub.toLocaleString('en-ZA')}`,
+            });
+          } else {
+            list.push({
+              label: `${qty}× ${item.name}`,
+              subtotalText: item.priceLabel,
+            });
+          }
+        }
+      }
+    }
+
+    return { pricedItemsList: list, estimatedTotal: total };
+  }, [itemizedQuantities]);
+
   const buildSummaryText = () => {
     const servicesText =
       selectedNames.length > 0 ? selectedNames.join(', ') : 'General Cleaning / Laundry Enquiry';
+    const itemsLine =
+      pricedItemsList.length > 0
+        ? `• Priced Items: ${pricedItemsList
+            .map((p) => `${p.label} = ${p.subtotalText}`)
+            .join('; ')}${
+            estimatedTotal > 0 ? ` (Est. Total: R${estimatedTotal.toLocaleString('en-ZA')})` : ''
+          }`
+        : null;
+
     const lines = [
       `Hi Krystal Care Cleaners, I would like a quote/booking:`,
       `• Services: ${servicesText}`,
+      itemsLine,
       `• Service Type: ${mode}`,
       `• Frequency: ${frequency}`,
       `• Area: ${suburb}`,
@@ -93,7 +142,7 @@ export function QuoteBuilder({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-teal-600 to-cyan-600 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
               <Sparkles className="h-3.5 w-3.5" />
               Fast Booking &amp; Quote
             </span>
@@ -101,8 +150,8 @@ export function QuoteBuilder({
               Request Your Instant Quote or Mobile Booking
             </h2>
             <p className="mt-3 text-base leading-relaxed text-slate-600">
-              Choose the services you need and send your request directly via WhatsApp for the
-              fastest response, or generate a booking summary for our team.
+              Choose the services you need and send your request directly via WhatsApp or email for
+              the fastest response, or generate a booking summary for our team.
             </p>
 
             <div className="mt-8 rounded-2xl border border-teal-200/80 bg-white p-6 shadow-sm">
@@ -130,7 +179,14 @@ export function QuoteBuilder({
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-[#0A2240] hover:border-teal-600 hover:bg-teal-50 transition-colors"
                 >
                   <Phone className="h-4 w-4 text-teal-700" />
-                  Prefer to Call? {BUSINESS_INFO.phoneDisplay}
+                  Call Us: {BUSINESS_INFO.phoneDisplay}
+                </a>
+                <a
+                  href={BUSINESS_INFO.emailHref}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-[#00388B] hover:border-[#0095DA] hover:bg-sky-50 transition-colors"
+                >
+                  <Mail className="h-4 w-4 text-[#0095DA]" />
+                  {BUSINESS_INFO.email}
                 </a>
               </div>
             </div>
@@ -141,7 +197,7 @@ export function QuoteBuilder({
               onSubmit={handleSubmit}
               className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5"
             >
-              <div className="h-2 w-full bg-gradient-to-r from-[#0A2240] via-teal-600 to-cyan-500" />
+              <div className="h-2 w-full bg-gradient-to-r from-[#00388B] via-[#0095DA] to-[#2E9E36]" />
               <div className="p-6 sm:p-8">
                 <div className="flex items-center justify-between gap-2">
                   <h3 className="font-display text-xl font-bold text-[#0A2240]">
@@ -179,6 +235,39 @@ export function QuoteBuilder({
                     );
                   })}
                 </div>
+
+                {/* Live Estimator Items Carried Over */}
+                {pricedItemsList.length > 0 && (
+                  <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#1E7A34]">
+                        Priced Items from Rate Card
+                      </span>
+                      <button
+                        type="button"
+                        onClick={onClearQuantities}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-rose-600 cursor-pointer"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                        Reset items
+                      </button>
+                    </div>
+                    <ul className="mt-2 space-y-1 text-xs sm:text-sm text-slate-800">
+                      {pricedItemsList.map((entry) => (
+                        <li key={entry.label} className="flex items-center justify-between gap-2">
+                          <span>{entry.label}</span>
+                          <span className="font-bold text-[#002B6B]">{entry.subtotalText}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {estimatedTotal > 0 && (
+                      <div className="mt-2.5 flex items-center justify-between border-t border-emerald-200/80 pt-2 text-sm font-extrabold text-[#1E7A34]">
+                        <span>Estimated ZAR Total</span>
+                        <span>R{estimatedTotal.toLocaleString('en-ZA')}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 <div className="mt-7 grid gap-4 sm:grid-cols-2">
                   <div>
@@ -308,14 +397,14 @@ export function QuoteBuilder({
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 px-5 py-3.5 text-sm font-bold text-white shadow-md hover:from-emerald-700 hover:to-teal-800 transition-all"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#1E7A34] to-teal-700 px-5 py-3.5 text-sm font-bold text-white shadow-md hover:opacity-95 transition-all"
                   >
                     <MessageCircle className="h-4 w-4" />
                     Send Quote via WhatsApp
                   </a>
                   <button
                     type="submit"
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#0A2240] px-5 py-3.5 text-sm font-bold text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#002B6B] px-5 py-3.5 text-sm font-bold text-white hover:bg-slate-800 transition-colors cursor-pointer"
                   >
                     <Send className="h-4 w-4" />
                     Prepare Booking Summary
@@ -332,7 +421,7 @@ export function QuoteBuilder({
                         </p>
                         <p className="mt-1 text-xs text-slate-600">
                           Send this pre-filled request straight to our team on WhatsApp or copy it to
-                          share by SMS/phone.
+                          share by email/SMS.
                         </p>
                         <pre className="mt-3 whitespace-pre-wrap rounded-xl border border-teal-200/80 bg-white p-3 text-xs text-slate-700 font-sans">
                           {buildSummaryText()}
@@ -342,7 +431,7 @@ export function QuoteBuilder({
                             href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 rounded-lg bg-teal-700 px-3.5 py-2 text-xs font-bold text-white hover:bg-teal-800"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-[#1E7A34] px-3.5 py-2 text-xs font-bold text-white hover:bg-emerald-800"
                           >
                             <MessageCircle className="h-3.5 w-3.5" />
                             Open in WhatsApp

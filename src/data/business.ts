@@ -6,6 +6,12 @@ export interface ItemGroup {
   entries: string[];
 }
 
+export interface PricedRate {
+  item: string;
+  priceLabel: string;
+  priceValue?: number;
+}
+
 export interface ServiceItem {
   id: string;
   pillar: ServicePillar;
@@ -16,11 +22,29 @@ export interface ServiceItem {
   method: string;
   turnaround: string;
   modeTag: string;
+  priceFrom?: string;
+  pricedRates?: PricedRate[];
   highlight?: string;
   items: string[];
   itemGroups: ItemGroup[];
   processSteps: string[];
   careNote: string;
+}
+
+export interface RateCardCategory {
+  id: 'upholstery-carpet' | 'dry-cleaning' | 'dye-services' | 'laundry';
+  title: string;
+  subtitle: string;
+  serviceId: string;
+  badge: string;
+  color: ServiceColor;
+  items: {
+    id: string;
+    name: string;
+    priceLabel: string;
+    priceValue: number | null;
+    unitNote?: string;
+  }[];
 }
 
 export const COLOR_THEMES: Record<
@@ -115,12 +139,15 @@ export const COLOR_THEMES: Record<
 export const BUSINESS_INFO = {
   legalName: 'Krystal Care Cleaners (Pty) Ltd',
   shortName: 'Krystal Care Cleaners',
+  brandMotto: 'Bring Colour Back to Life!',
   tagline: 'Mobile Deep Cleaning & Specialist Garment Care Across Johannesburg & Gauteng',
   address: '14 Dharwar St, Lenasia Extension 11, Johannesburg, 1827',
   shortAddress: '14 Dharwar St, Lenasia Ext 11, JHB 1827',
   phoneDisplay: '+27 77 247 3275',
   phoneLocal: '077 247 3275',
   phoneHref: 'tel:+27772473275',
+  email: 'info@krystalcare.co.za',
+  emailHref: 'mailto:info@krystalcare.co.za',
   whatsappNumber: '27772473275',
   whatsappBaseUrl: 'https://wa.me/27772473275',
   googleMapsUrl:
@@ -141,6 +168,103 @@ export const BUSINESS_INFO = {
   ],
 };
 
+export const RATE_CARD_SECTIONS: RateCardCategory[] = [
+  {
+    id: 'upholstery-carpet',
+    title: 'Couch, Carpet, Curtain & Mattress',
+    subtitle: 'Mobile onsite extraction across Johannesburg & Lenasia',
+    serviceId: 'couch-chair',
+    badge: 'Mobile Extraction',
+    color: 'teal',
+    items: [
+      { id: 'fabric-1seater', name: '1-Seater Fabric Couch', priceLabel: 'R150', priceValue: 150 },
+      { id: 'fabric-3seater', name: '3-Seater Fabric Couch', priceLabel: 'R750', priceValue: 750 },
+      { id: 'leather-1seater', name: '1-Seater Leather Couch', priceLabel: 'R230', priceValue: 230 },
+      { id: 'leather-3seater', name: '3-Seater Leather Couch', priceLabel: 'R1,550', priceValue: 1550 },
+      {
+        id: 'dining-chair',
+        name: 'Dining Room Chair',
+        priceLabel: 'R80',
+        priceValue: 80,
+        unitNote: 'Per chair',
+      },
+      {
+        id: 'carpet-room',
+        name: 'Carpet Cleaning (1 Room)',
+        priceLabel: 'R400',
+        priceValue: 400,
+        unitNote: 'Standard room',
+      },
+      {
+        id: 'curtain-quote',
+        name: 'Curtain Cleaning (Unlined / Lined)',
+        priceLabel: 'Quote on size',
+        priceValue: null,
+        unitNote: 'Onsite or take-down',
+      },
+      {
+        id: 'mattress-quote',
+        name: 'Mattress Sanitising (3/4 – King)',
+        priceLabel: 'Quote on size',
+        priceValue: null,
+        unitNote: 'Single to King',
+      },
+    ],
+  },
+  {
+    id: 'dry-cleaning',
+    title: 'Dry Cleaning Services',
+    subtitle: 'Suits, winter outerwear, formalwear & household pillows',
+    serviceId: 'dry-cleaning-formal',
+    badge: 'Solvent & Press',
+    color: 'rose',
+    items: [
+      { id: 'suit-2pc', name: '2-Piece Suit', priceLabel: 'R230', priceValue: 230 },
+      { id: 'suit-3pc', name: '3-Piece Suit', priceLabel: 'R310', priceValue: 310 },
+      { id: 'ties-bowties', name: 'Ties & Bowties', priceLabel: 'R80', priceValue: 80 },
+      { id: 'lumber-jacket', name: 'Lumber Jackets', priceLabel: 'R140', priceValue: 140 },
+      { id: 'overcoats', name: 'Overcoats', priceLabel: 'R190', priceValue: 190 },
+      { id: 'pillows-dc', name: 'Pillows', priceLabel: 'R60', priceValue: 60 },
+    ],
+  },
+  {
+    id: 'dye-services',
+    title: 'Dye Services — Bring Colour Back to Life!',
+    subtitle: 'High-saturation garment dyeing for faded jeans, tops & caps',
+    serviceId: 'clothing-dyeing',
+    badge: 'Colour Revival',
+    color: 'indigo',
+    items: [
+      { id: 'dye-jeans', name: 'Jeans', priceLabel: 'R300', priceValue: 300 },
+      { id: 'dye-tshirts', name: 'T-Shirts', priceLabel: 'R280', priceValue: 280 },
+      { id: 'dye-longsleeve', name: 'Long Sleeve Shirts', priceLabel: 'R260', priceValue: 260 },
+      { id: 'dye-golf', name: 'Golf Shirts', priceLabel: 'R230', priceValue: 230 },
+      { id: 'dye-caps', name: 'Caps', priceLabel: 'R140', priceValue: 140 },
+    ],
+  },
+  {
+    id: 'laundry',
+    title: 'Laundry Services',
+    subtitle: 'Crisp everyday wash, iron, fold & bulky bedding care',
+    serviceId: 'laundry-linen',
+    badge: '24–48 Hr Turnaround',
+    color: 'sky',
+    items: [
+      { id: 'wash-fold', name: 'Wash & Fold', priceLabel: 'R45', priceValue: 45 },
+      { id: 'wash-iron', name: 'Wash & Iron', priceLabel: 'R50', priceValue: 50 },
+      { id: 'linen', name: 'Linen', priceLabel: 'R55', priceValue: 55 },
+      { id: 'blankets-duvet', name: 'Blankets & Duvet', priceLabel: 'R220', priceValue: 220 },
+      {
+        id: 'feather-duvet',
+        name: 'Feather Duvets',
+        priceLabel: 'Quote on inspection',
+        priceValue: null,
+        unitNote: 'Gentle loft dry',
+      },
+    ],
+  },
+];
+
 export const SERVICE_CATALOG: ServiceItem[] = [
   {
     id: 'carpet-rug',
@@ -153,18 +277,20 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Commercial Hot-Water Extraction & Low-Moisture Rug Rinse',
     turnaround: 'Dries in 3–5 hours onsite',
     modeTag: 'Mobile Onsite or Collection',
+    priceFrom: 'From R400 / room',
+    pricedRates: [{ item: 'Carpet Cleaning (1 Room)', priceLabel: 'R400', priceValue: 400 }],
     highlight: 'Fast-Dry Extraction',
     items: [
-      'Bedrooms',
+      'Bedrooms (From R400 per room)',
       'Passages & Stairways',
       'Lounge Rooms',
-      'Loose Rugs',
+      'Loose & Shaggy Rugs',
       'Persian Rugs & Carpets',
     ],
     itemGroups: [
       {
         groupName: 'Fitted Residential & Office Areas',
-        entries: ['Bedrooms', 'Passages & Stairways', 'Lounge & Dining Rooms', 'Boardrooms & Office Suites'],
+        entries: ['Bedrooms (R400 / room)', 'Passages & Stairways', 'Lounge & Dining Rooms', 'Boardrooms & Office Suites'],
       },
       {
         groupName: 'Loose & Delicate Rugs',
@@ -190,22 +316,35 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Deep Upholstery Extraction & Leather Conditioning',
     turnaround: 'Dries in 3–6 hours onsite',
     modeTag: 'Mobile Onsite',
+    priceFrom: 'From R80 / chair',
+    pricedRates: [
+      { item: 'Dining Room Chair (Each)', priceLabel: 'R80', priceValue: 80 },
+      { item: '1-Seater Fabric Couch', priceLabel: 'R150', priceValue: 150 },
+      { item: '3-Seater Fabric Couch', priceLabel: 'R750', priceValue: 750 },
+      { item: '1-Seater Leather Couch', priceLabel: 'R230', priceValue: 230 },
+      { item: '3-Seater Leather Couch', priceLabel: 'R1,550', priceValue: 1550 },
+    ],
     highlight: 'Most Popular',
     items: [
-      'Fabric Lounge Suites & Sectionals',
-      'Leather Couches & Conditioning',
-      'Armchairs & Recliners',
-      'Dining Room Chairs',
+      '3-Seater Fabric Couch (R750)',
+      '1-Seater Fabric Couch (R150)',
+      'Leather Couches (1-Seater R230 · 3-Seater R1,550)',
+      'Dining Room Chairs (R80 each)',
       'Office & Reception Chairs',
     ],
     itemGroups: [
       {
         groupName: 'Lounge Seating',
-        entries: ['2-Seater, 3-Seater & L-Shaped Couches', 'Velvet, Linen & Chenille Suites', 'Genuine & Bonded Leather Couches'],
+        entries: [
+          '1-Seater Fabric Couch (R150)',
+          '3-Seater Fabric Couch (R750)',
+          '1-Seater Leather Couch (R230)',
+          '3-Seater Leather Couch (R1,550)',
+        ],
       },
       {
         groupName: 'Individual & Commercial Chairs',
-        entries: ['Armchairs & Ottomans', 'Upholstered Dining Chairs', 'Fabric & Mesh Office Chairs'],
+        entries: ['Dining Room Chairs (R80 each)', 'Armchairs & Ottomans', 'Fabric & Mesh Office Chairs'],
       },
     ],
     processSteps: [
@@ -227,6 +366,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'High-Temp Sanitising Extraction & Allergen Flush',
     turnaround: 'Dries in 3–5 hours onsite',
     modeTag: 'Mobile Onsite',
+    priceFrom: 'Quoted by bed size',
     highlight: 'Allergen Relief',
     items: [
       'Single & Three-Quarter (3/4)',
@@ -263,6 +403,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Fabric-Safe Curtain Care (Onsite or Take-Down)',
     turnaround: 'Same-day onsite or 48 hr workshop',
     modeTag: 'Onsite or Collection',
+    priceFrom: 'Quoted by drop & lining',
     items: [
       'Unlined Curtains & Sheers',
       'Lined & Blockout Curtains',
@@ -297,6 +438,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Rotary Scrubbing, Grout Agitation & Commercial Extraction',
     turnaround: 'Same-day completion · After-hours available',
     modeTag: 'Residential & Commercial',
+    priceFrom: 'Custom site quote',
     highlight: 'Once-Off or Regular',
     items: [
       'Tile & Grout Deep Scrubbing',
@@ -333,26 +475,34 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Temperature-Sorted Wash, Soften & Steam Press',
     turnaround: '24–48 hour standard turnaround',
     modeTag: 'Collection / Drop-Off',
+    priceFrom: 'From R45',
+    pricedRates: [
+      { item: 'Wash & Fold', priceLabel: 'R45', priceValue: 45 },
+      { item: 'Wash & Iron', priceLabel: 'R50', priceValue: 50 },
+      { item: 'Linen', priceLabel: 'R55', priceValue: 55 },
+      { item: 'Blankets & Duvet', priceLabel: 'R220', priceValue: 220 },
+      { item: 'Pillows', priceLabel: 'R60', priceValue: 60 },
+    ],
     highlight: 'Fast Turnaround',
     items: [
-      'Washing & Ironing',
-      'Washing & Neat Folding',
-      'Household Bed Linen & Sheets',
-      'Comforters, Duvets & Feather Duvets',
-      'Blankets & Standard / Continental Pillows',
+      'Wash & Fold (R45) · Wash & Iron (R50)',
+      'Household Linen (R55)',
+      'Blankets & Duvet (R220)',
+      'Feather Duvets (Quoted on inspection)',
+      'Standard & Continental Pillows (R60)',
     ],
     itemGroups: [
       {
         groupName: 'Laundromat & Everyday Laundry',
-        entries: ['Washing & Ironing', 'Washing & Folding', 'Weekly Family Laundry Bundles'],
+        entries: ['Wash & Fold (R45)', 'Wash & Iron (R50)', 'Weekly Family Laundry Bundles'],
       },
       {
         groupName: 'Bed Linen & Bedding',
         entries: [
-          'Sheets, Pillowcases & Duvet Covers (Wash & Iron / Fold)',
-          'Comforters & Duvets (Standard & Feather)',
-          'Heavy Blankets & Throws',
-          'Standard & Continental Pillows (Standard & Feather)',
+          'Linen & Sheets (R55)',
+          'Blankets & Duvet (R220)',
+          'Feather Duvets (Quote on inspection)',
+          'Pillows (R60)',
         ],
       },
     ],
@@ -375,10 +525,17 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Gentle Solvent Dry Cleaning & Hand-Finished Pressing',
     turnaround: '48–72 hours (Express available)',
     modeTag: 'Specialist Garment Care',
+    priceFrom: 'From R80',
+    pricedRates: [
+      { item: 'Ties & Bowties', priceLabel: 'R80', priceValue: 80 },
+      { item: '2-Piece Suit', priceLabel: 'R230', priceValue: 230 },
+      { item: '3-Piece Suit', priceLabel: 'R310', priceValue: 310 },
+      { item: 'Pillows', priceLabel: 'R60', priceValue: 60 },
+    ],
     highlight: 'Delicate Specialists',
     items: [
-      'Suits, Jackets, Trousers & Waistcoats',
-      'Shirts, Ties & Bow Ties',
+      '2-Piece Suit (R230) · 3-Piece Suit (R310)',
+      'Ties & Bow Ties (R80)',
       'Plain, Semi-Pleated & Full-Pleated Skirts & Dresses',
       'Wedding Dresses',
       'Indian Outfits (Sarees, Lehengas, Kurtas)',
@@ -386,7 +543,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     itemGroups: [
       {
         groupName: 'Suits & Formalwear',
-        entries: ['Suit (2-Piece / 3-Piece)', 'Shirt & Tie / Bow Tie', 'Jacket, Trousers, Waistcoat & Slacks'],
+        entries: ['2-Piece Suit (R230)', '3-Piece Suit (R310)', 'Ties & Bowties (R80)', 'Shirts, Jackets & Slacks'],
       },
       {
         groupName: 'Skirts & Dresses',
@@ -416,19 +573,24 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Shape-Safe Knit & Coat Care',
     turnaround: '48–72 hours',
     modeTag: 'Collection / Drop-Off',
+    priceFrom: 'From R140',
+    pricedRates: [
+      { item: 'Lumber Jackets', priceLabel: 'R140', priceValue: 140 },
+      { item: 'Overcoats', priceLabel: 'R190', priceValue: 190 },
+    ],
     items: [
+      'Lumber Jackets (R140)',
+      'Overcoats (R190)',
       'Knit Jerseys & Cardigans',
-      'Lumber Jackets (Short & Long)',
-      'Overcoats (Waist, 2/3 & Full Length)',
       'Caps & Hats',
     ],
     itemGroups: [
       {
         groupName: 'Winter & Outerwear',
         entries: [
+          'Lumber Jackets (R140)',
+          'Overcoats (R190)',
           'Jerseys & Wool Knits',
-          'Lumber Jacket – Short & Long',
-          'Overcoat – Waist Length, 2/3 Length & Long',
           'Caps & Hats',
         ],
       },
@@ -446,28 +608,42 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     pillar: 'garment',
     color: 'indigo',
     title: 'Clothing Dyeing Services',
-    subtitle: 'Restore faded blacks or transform garment colour',
+    subtitle: 'Bring Colour Back to Life!',
     description:
-      'Breathe second life into sun-faded denim, workwear, jackets, and everyday favourites with rich, even colour dyeing.',
+      'Breathe second life into sun-faded denim, workwear, t-shirts, golf shirts, caps, and everyday favourites with rich, even colour dyeing.',
     method: 'High-Saturation Vat Dyeing & Colour Fixation',
     turnaround: '3–5 working days',
     modeTag: 'Drop-Off or Collection',
-    highlight: 'Revive Faded Clothes',
+    priceFrom: 'From R140',
+    pricedRates: [
+      { item: 'Caps', priceLabel: 'R140', priceValue: 140 },
+      { item: 'Golf Shirts', priceLabel: 'R230', priceValue: 230 },
+      { item: 'Long Sleeve Shirts', priceLabel: 'R260', priceValue: 260 },
+      { item: 'T-Shirts', priceLabel: 'R280', priceValue: 280 },
+      { item: 'Jeans', priceLabel: 'R300', priceValue: 300 },
+    ],
+    highlight: 'Bring Colour Back!',
     items: [
-      'Trousers, Jeans & Dungarees',
-      'Jackets & Waistcoats',
-      'Shirts & Blouses',
-      'T-Shirts & Golf Shirts',
+      'Jeans (R300)',
+      'T-Shirts (R280)',
+      'Long Sleeve Shirts (R260)',
+      'Golf Shirts (R230)',
+      'Caps (R140)',
     ],
     itemGroups: [
       {
-        groupName: 'Dyeable Garment Categories',
+        groupName: 'Official Dye Rate Card',
         entries: [
-          'Trousers / Jeans & Dungarees',
-          'Jackets & Waistcoats',
-          'Shirts & Blouses',
-          'T-Shirts & Golf Shirts',
+          'Jeans — R300',
+          'T-Shirts — R280',
+          'Long Sleeve Shirts — R260',
+          'Golf Shirts — R230',
+          'Caps — R140',
         ],
+      },
+      {
+        groupName: 'Additional Dyeable Garments',
+        entries: ['Dungarees & Chinos', 'Cotton Jackets & Waistcoats'],
       },
     ],
     processSteps: [
@@ -476,7 +652,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
       'Controlled hot dye bath & colour-lock fixer rinse',
       'Final wash, dry & press for rich, uniform tone',
     ],
-    careNote: 'Most popular for restoring faded black jeans, chinos, and cotton jackets.',
+    careNote: 'Most popular for restoring faded black jeans, chinos, golf shirts, and cotton caps.',
   },
   {
     id: 'sneaker-cleaning',
@@ -489,6 +665,7 @@ export const SERVICE_CATALOG: ServiceItem[] = [
     method: 'Hand-Brushed Upper, Midsole & Insole Sanitising',
     turnaround: '24–48 hours',
     modeTag: 'Drop-Off or Collection',
+    priceFrom: 'Quoted per pair',
     items: [
       'Leather & White Sneaker Restoration',
       'Mesh, Knit & Canvas Trainers',
@@ -594,6 +771,6 @@ export const FAQS = [
   {
     question: 'What items can be dyed through your clothing dyeing service?',
     answer:
-      'We refresh and recolour cotton and dye-compatible trousers/jeans, dungarees, jackets, waistcoats, shirts/blouses, and t-shirts/golf shirts. Send us a quick photo on WhatsApp (+27 77 247 3275) and we will advise on the fabric label before booking.',
+      'We refresh and recolour cotton and dye-compatible jeans (R300), t-shirts (R280), long sleeve shirts (R260), golf shirts (R230), caps (R140), dungarees, and jackets. Send us a quick photo on WhatsApp (+27 77 247 3275) or email info@krystalcare.co.za and we will advise on the fabric label before booking.',
   },
 ];
