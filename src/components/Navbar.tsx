@@ -320,7 +320,7 @@ export function Navbar({
             Prices &amp; Results
           </a>
 
-          {/* Submenu 3: Areas & Branch */}
+          {/* Submenu 3: Mobile Areas */}
           <div
             className="relative"
             onMouseEnter={() => setActiveDesktopMenu('coverage')}
@@ -338,7 +338,7 @@ export function Navbar({
                   : 'text-slate-700 hover:bg-slate-50 hover:text-[#0A2240]'
               }`}
             >
-              <span>Areas &amp; Branch</span>
+              <span>Mobile Areas</span>
               <ChevronDown
                 className={`h-4 w-4 transition-transform ${
                   activeDesktopMenu === 'coverage'
@@ -358,7 +358,7 @@ export function Navbar({
                   >
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
                     <div>
-                      <p className="text-sm font-bold text-[#0A2240]">Gauteng Service Areas</p>
+                      <p className="text-sm font-bold text-[#0A2240]">Gauteng Mobile Coverage</p>
                       <p className="text-xs text-slate-500">
                         Lenasia, Joburg South, Sandton, Rosebank, Randburg &amp; East Rand
                       </p>
@@ -371,9 +371,9 @@ export function Navbar({
                   >
                     <Clock className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />
                     <div>
-                      <p className="text-sm font-bold text-[#0A2240]">Lenasia Ext 11 Branch &amp; Hours</p>
+                      <p className="text-sm font-bold text-[#0A2240]">Mobile Dispatch &amp; Hours</p>
                       <p className="text-xs text-slate-500">
-                        14 Dharwar St · Open Mon–Fri 8–6, Sat–Sun 8–2
+                        Lenasia Ext 11 Base · Open Mon–Fri 8–6, Sat–Sun 8–2
                       </p>
                     </div>
                   </a>
