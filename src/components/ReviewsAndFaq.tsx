@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Star, ChevronDown, Quote } from 'lucide-react';
+import { Star, ChevronDown, Quote, ExternalLink } from 'lucide-react';
 import { BUSINESS_INFO, FAQS, REVIEW_HIGHLIGHTS } from '../data/business';
 
 export function ReviewsAndFaq() {
@@ -24,10 +24,21 @@ export function ReviewsAndFaq() {
               Praised for Turnaround, Pricing &amp; Deep Results
             </h2>
           </div>
-          <p className="max-w-md text-sm text-slate-600">
-            Customers across Lenasia and Johannesburg consistently highlight our fast turnaround
-            times, fair pricing, and visible restoration on mattresses, sofas, and office spaces.
-          </p>
+          <div className="flex flex-col items-start gap-3 md:items-end">
+            <p className="max-w-md text-sm text-slate-600 md:text-right">
+              Customers across Lenasia and Johannesburg consistently highlight our fast turnaround
+              times, fair pricing, and visible restoration on mattresses, sofas, and office spaces.
+            </p>
+            <a
+              href={BUSINESS_INFO.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-bold text-[#00388B] hover:border-[#0095DA] hover:bg-sky-50 transition-colors"
+            >
+              <span>View Google Maps Profile (4.9★)</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">

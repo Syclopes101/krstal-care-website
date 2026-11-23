@@ -730,19 +730,19 @@ export const REVIEW_HIGHLIGHTS = [
   {
     quote:
       'Fast turnaround, fair pricing, and our lounge couch and queen mattress looked and smelled brand new after the deep clean.',
-    author: 'Verified Google Review Highlight',
+    author: 'Lenasia & Joburg South Households',
     service: 'Couch & Mattress Deep Cleaning',
   },
   {
     quote:
       'They handled our office carpets and dining chairs efficiently with minimal disruption. Spotless finish and friendly team.',
-    author: 'Verified Google Review Highlight',
+    author: 'Commercial & Office Clients',
     service: 'Office & Carpet Cleaning',
   },
   {
     quote:
       'Reliable collection and crisp finishing on delicate formalwear and household linen. Truly earns their 4.9-star reputation in Lenasia.',
-    author: 'Verified Google Review Highlight',
+    author: 'Regular Garment & Linen Clients',
     service: 'Dry Cleaning & Laundry',
   },
 ];
