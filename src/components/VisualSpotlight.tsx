@@ -8,41 +8,41 @@ const SPOTLIGHTS = [
   {
     image: `${import.meta.env.BASE_URL}images/laundry-garment.jpg`,
     alt: 'Pressed suits, delicate embellished formalwear, and crisp folded linen at Krystal Care Cleaners',
-    badge: 'Dry Cleaning & Laundry',
+    badge: 'Dry Cleaning & Laundry · From R45',
     badgeColor: 'bg-rose-600/95',
     borderAccent: 'hover:border-rose-300',
     ctaColor: 'text-rose-700 hover:text-rose-900',
     title: 'Tailored Suits, Wedding Dresses & Indian Outfits',
     description:
-      'Delicate solvent cleaning, crisp steam pressing, and folded household linen with turnaround times you can count on for weddings, Eid, Diwali, and busy workweeks.',
+      'Delicate solvent cleaning (2-Piece Suits R230, 3-Piece R310), crisp Wash & Iron (R50), Wash & Fold (R45), and specialist care for sarees, lehengas & bridalwear.',
     presetIds: ['dry-cleaning-formal', 'laundry-linen'],
     cta: 'Quote Garment Care',
   },
   {
-    image: `${import.meta.env.BASE_URL}images/mattress-carpet.jpg`,
-    alt: 'Freshly sanitised white quilted mattress and clean bedroom carpet',
-    badge: 'Deep Bedroom Hygiene',
-    badgeColor: 'bg-emerald-600/95',
-    borderAccent: 'hover:border-emerald-300',
-    ctaColor: 'text-emerald-700 hover:text-emerald-900',
-    title: 'Mattresses, Headboards & Fitted Carpets',
+    image: `${import.meta.env.BASE_URL}images/real-persian-onsite.jpg`,
+    alt: 'Krystal Care Cleaners technician deep-cleaning a Persian rug onsite',
+    badge: 'Onsite Rugs & Carpets · From R400',
+    badgeColor: 'bg-[#00388B]/95',
+    borderAccent: 'hover:border-sky-300',
+    ctaColor: 'text-[#00388B] hover:text-sky-900',
+    title: 'Persian Rugs, Fitted Carpets & Couches',
     description:
-      'Remove dust mites, allergens, and lingering stains from Single to King mattresses, upholstered headboards, bedroom carpets, and Persian rugs.',
-    presetIds: ['mattress-headboard', 'carpet-rug'],
-    cta: 'Quote Bedroom & Carpets',
+      'Mobile hot-water extraction for Persian rugs, fitted bedrooms (R400/room), fabric couches (3-Seater R750 · 1-Seater R150), and leather suites (3-Seater R1,550).',
+    presetIds: ['carpet-rug', 'couch-chair', 'mattress-headboard'],
+    cta: 'Quote Mobile Extraction',
   },
   {
-    image: `${import.meta.env.BASE_URL}images/sneaker-curtain.jpg`,
-    alt: 'Spotless white leather sneakers beside freshly cleaned linen curtains and tiled floor',
-    badge: 'Specialist Restoration',
-    badgeColor: 'bg-amber-600/95',
-    borderAccent: 'hover:border-amber-300',
-    ctaColor: 'text-amber-700 hover:text-amber-900',
-    title: 'Sneaker Cleaning, Curtains & Tile Grout',
+    image: `${import.meta.env.BASE_URL}images/real-office-chair.jpg`,
+    alt: 'Krystal Care Cleaners specialist extracting an ergonomic mesh office chair',
+    badge: 'Office & Commercial · R80 / Chair',
+    badgeColor: 'bg-[#1E7A34]/95',
+    borderAccent: 'hover:border-emerald-300',
+    ctaColor: 'text-[#1E7A34] hover:text-emerald-900',
+    title: 'Office Chairs, Commercial Carpets & Dyeing',
     description:
-      'From scuffed leather trainers and sun-faded denim dyeing to floor-length lined curtains and kitchen tile & grout lines.',
-    presetIds: ['sneaker-cleaning', 'curtain-specialist', 'tile-grout-office'],
-    cta: 'Quote Specialist Care',
+      'Keep offices spotless with task & dining chair extraction (R80/chair), tile & grout scrubbing, plus clothing dyeing (Jeans R300, T-Shirts R280, Golf Shirts R230, Caps R140).',
+    presetIds: ['tile-grout-office', 'clothing-dyeing', 'sneaker-cleaning'],
+    cta: 'Quote Commercial & Dyeing',
   },
 ];
 
@@ -50,7 +50,7 @@ export function VisualSpotlight({ onSelectPreset }: VisualSpotlightProps) {
   return (
     <section
       id="spotlight"
-      className="py-16 sm:py-24 bg-gradient-to-b from-white to-[#F0FDFA]/50 border-y border-slate-200/80"
+      className="py-16 sm:py-24 bg-gradient-to-b from-white to-[#F0FDFA]/50 border-b border-slate-200/80"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
@@ -62,7 +62,7 @@ export function VisualSpotlight({ onSelectPreset }: VisualSpotlightProps) {
           </h2>
           <p className="mt-3 text-base text-slate-600">
             Whether it is an heirloom Persian rug, a beaded lehenga, a family sectional sofa, or a
-            pair of white leather sneakers, we match the cleaning method to the material.
+            commercial office floor, we match the cleaning method to the material.
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export function VisualSpotlight({ onSelectPreset }: VisualSpotlightProps) {
                 <img
                   src={item.image}
                   alt={item.alt}
-                  className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 <span
                   className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold text-white shadow-sm backdrop-blur ${item.badgeColor}`}

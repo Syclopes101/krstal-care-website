@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ServicesShowcase } from './components/ServicesShowcase';
+import { RateCardAndResults } from './components/RateCardAndResults';
 import { VisualSpotlight } from './components/VisualSpotlight';
 import { HowItWorks } from './components/HowItWorks';
 import { ServiceAreasAndHours } from './components/ServiceAreasAndHours';
@@ -16,6 +17,7 @@ export function App() {
     'couch-chair',
     'carpet-rug',
   ]);
+  const [itemizedQuantities, setItemizedQuantities] = useState<Record<string, number>>({});
   const [activeTab, setActiveTab] = useState<'all' | ServicePillar>('all');
   const [highlightedServiceId, setHighlightedServiceId] = useState<string | null>(null);
   const [detailService, setDetailService] = useState<ServiceItem | null>(null);
@@ -33,6 +35,30 @@ export function App() {
     );
   }, []);
 
+  const handleChangeQuantity = useCallback((itemId: string, delta: number) => {
+    setItemizedQuantities((prev) => {
+      const nextQty = Math.max(0, (prev[itemId] ?? 0) + delta);
+      if (nextQty === 0) {
+        const copy = { ...prev };
+        delete copy[itemId];
+        return copy;
+      }
+      return { ...prev, [itemId]: nextQty };
+    });
+  }, []);
+
+  const handleApplyEstimateToQuote = useCallback(
+    (serviceIdToSelect?: string) => {
+      if (serviceIdToSelect) {
+        setSelectedServiceIds((prev) =>
+          prev.includes(serviceIdToSelect) ? prev : [...prev, serviceIdToSelect]
+        );
+      }
+      jumpToQuote();
+    },
+    [jumpToQuote]
+  );
+
   const selectPresetAndJump = useCallback(
     (presetIds: string[]) => {
       setSelectedServiceIds((prev) => Array.from(new Set([...prev, ...presetIds])));
@@ -43,6 +69,10 @@ export function App() {
 
   const clearServices = useCallback(() => {
     setSelectedServiceIds([]);
+  }, []);
+
+  const clearQuantities = useCallback(() => {
+    setItemizedQuantities({});
   }, []);
 
   const handleSelectServiceFromMenu = useCallback((serviceId: string) => {
@@ -96,6 +126,11 @@ export function App() {
           onJumpToQuote={jumpToQuote}
           onQuickOpenService={handleSelectServiceFromMenu}
         />
+        <RateCardAndResults
+          quantities={itemizedQuantities}
+          onChangeQuantity={handleChangeQuantity}
+          onApplyEstimateToQuote={handleApplyEstimateToQuote}
+        />
         <ServicesShowcase
           activeTab={activeTab}
           onChangeTab={setActiveTab}
@@ -111,8 +146,10 @@ export function App() {
         <ReviewsAndFaq />
         <QuoteBuilder
           selectedServiceIds={selectedServiceIds}
+          itemizedQuantities={itemizedQuantities}
           onToggleService={toggleService}
           onClearServices={clearServices}
+          onClearQuantities={clearQuantities}
         />
       </main>
       <Footer />

@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import {
   Phone,
+  Mail,
   Menu,
   X,
   Sparkles,
@@ -11,6 +12,7 @@ import {
   HelpCircle,
   MessageCircle,
   ArrowRight,
+  Tag,
 } from 'lucide-react';
 import { BUSINESS_INFO, COLOR_THEMES, SERVICE_CATALOG, type ServicePillar } from '../data/business';
 
@@ -112,7 +114,7 @@ export function Navbar({
       className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs"
     >
       {/* Colourful Top Status & Contact Bar */}
-      <div className="bg-gradient-to-r from-[#0A2240] via-[#0F3157] to-[#0D5C63] px-4 py-1.5 text-xs text-slate-100">
+      <div className="bg-gradient-to-r from-[#002B6B] via-[#003D8E] to-[#1E7A34] px-4 py-1.5 text-xs text-slate-100">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span
@@ -121,18 +123,25 @@ export function Navbar({
               }`}
             />
             <span className="font-semibold text-white">{status.label}</span>
-            <span className="hidden text-teal-300/60 sm:inline">•</span>
-            <span className="hidden text-teal-100 sm:inline">{BUSINESS_INFO.shortAddress}</span>
+            <span className="hidden text-sky-200/60 sm:inline">•</span>
+            <span className="hidden text-sky-100 sm:inline">{BUSINESS_INFO.shortAddress}</span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="hidden md:inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-300">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="hidden lg:inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-300">
               ★ {BUSINESS_INFO.rating} / 5 ({BUSINESS_INFO.reviewCount} Google Reviews)
             </span>
             <a
-              href={BUSINESS_INFO.phoneHref}
-              className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-teal-300 transition-colors"
+              href={BUSINESS_INFO.emailHref}
+              className="hidden md:inline-flex items-center gap-1.5 font-medium text-sky-100 hover:text-white transition-colors"
             >
-              <Phone className="h-3.5 w-3.5 text-teal-300" />
+              <Mail className="h-3.5 w-3.5 text-amber-300" />
+              {BUSINESS_INFO.email}
+            </a>
+            <a
+              href={BUSINESS_INFO.phoneHref}
+              className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-amber-200 transition-colors"
+            >
+              <Phone className="h-3.5 w-3.5 text-emerald-300" />
               {BUSINESS_INFO.phoneDisplay}
             </a>
           </div>
@@ -140,32 +149,25 @@ export function Navbar({
       </div>
 
       {/* Main Navigation Row */}
-      <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
         <a href="#" className="flex items-center gap-3 group shrink-0">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0A2240] to-teal-700 shadow-sm ring-1 ring-teal-500/20 group-hover:scale-105 transition-transform">
-            <svg viewBox="0 0 36 36" className="h-6 w-6" aria-hidden="true">
-              <path
-                d="M18 4L27.5 17.5C29.5 20.5 28.5 28 18 31C7.5 28 6.5 20.5 8.5 17.5L18 4Z"
-                fill="#14B8A6"
-              />
-              <path
-                d="M18 10L23 17.5C24 19.5 23.2 24.2 18 26C12.8 24.2 12 19.5 13 17.5L18 10Z"
-                fill="#99F6E4"
-              />
-            </svg>
-          </div>
-          <div className="leading-tight">
-            <span className="font-display block text-lg font-extrabold tracking-tight text-[#0A2240]">
-              Krystal Care
-            </span>
-            <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-teal-700">
+          <img
+            src={`${import.meta.env.BASE_URL}images/krystal-logo.png`}
+            alt="Krystal Care Cleaners logo"
+            className="h-11 w-auto sm:h-12 object-contain transition-transform group-hover:scale-105"
+          />
+          <div className="hidden sm:block leading-tight border-l border-slate-200 pl-3">
+            <span className="block text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#00388B]">
               Cleaners (Pty) Ltd
+            </span>
+            <span className="block text-[11px] font-semibold text-[#2E9E36]">
+              {BUSINESS_INFO.brandMotto}
             </span>
           </div>
         </a>
 
         {/* Desktop Interactive Dropdown Triggers */}
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Primary navigation">
           {/* Submenu 1: Home & Office Cleaning */}
           <div
             className="relative"
@@ -178,13 +180,13 @@ export function Navbar({
               onClick={() =>
                 setActiveDesktopMenu((prev) => (prev === 'cleaning' ? null : 'cleaning'))
               }
-              className={`inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors cursor-pointer ${
+              className={`inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold transition-colors cursor-pointer ${
                 activeDesktopMenu === 'cleaning'
                   ? 'bg-sky-50 text-sky-800'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-[#0A2240]'
               }`}
             >
-              <span>Home &amp; Office Cleaning</span>
+              <span>Home &amp; Office</span>
               <ChevronDown
                 className={`h-4 w-4 transition-transform ${
                   activeDesktopMenu === 'cleaning' ? 'rotate-180 text-sky-700' : 'text-slate-400'
@@ -227,7 +229,7 @@ export function Navbar({
                           <span
                             className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}
                           >
-                            {item.turnaround.split(' ')[0]} {item.turnaround.split(' ')[1]}
+                            {item.priceFrom ?? item.turnaround.split(' ')[0]}
                           </span>
                         </button>
                       );
@@ -250,13 +252,13 @@ export function Navbar({
               onClick={() =>
                 setActiveDesktopMenu((prev) => (prev === 'garment' ? null : 'garment'))
               }
-              className={`inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors cursor-pointer ${
+              className={`inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold transition-colors cursor-pointer ${
                 activeDesktopMenu === 'garment'
                   ? 'bg-teal-50 text-teal-800'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-[#0A2240]'
               }`}
             >
-              <span>Laundry &amp; Garments</span>
+              <span>Laundry &amp; Dyeing</span>
               <ChevronDown
                 className={`h-4 w-4 transition-transform ${
                   activeDesktopMenu === 'garment' ? 'rotate-180 text-teal-700' : 'text-slate-400'
@@ -299,7 +301,7 @@ export function Navbar({
                           <span
                             className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}
                           >
-                            {item.modeTag}
+                            {item.priceFrom ?? item.modeTag}
                           </span>
                         </button>
                       );
@@ -309,6 +311,14 @@ export function Navbar({
               </div>
             )}
           </div>
+
+          <a
+            href="#pricing-results"
+            className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-emerald-50 hover:text-[#1E7A34] transition-colors"
+          >
+            <Tag className="h-3.5 w-3.5 text-[#2E9E36]" />
+            Prices &amp; Results
+          </a>
 
           {/* Submenu 3: Areas & Branch */}
           <div
@@ -322,7 +332,7 @@ export function Navbar({
               onClick={() =>
                 setActiveDesktopMenu((prev) => (prev === 'coverage' ? null : 'coverage'))
               }
-              className={`inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors cursor-pointer ${
+              className={`inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold transition-colors cursor-pointer ${
                 activeDesktopMenu === 'coverage'
                   ? 'bg-emerald-50 text-emerald-800'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-[#0A2240]'
@@ -382,7 +392,7 @@ export function Navbar({
               type="button"
               aria-expanded={activeDesktopMenu === 'about'}
               onClick={() => setActiveDesktopMenu((prev) => (prev === 'about' ? null : 'about'))}
-              className={`inline-flex items-center gap-1 rounded-xl px-3.5 py-2 text-sm font-semibold transition-colors cursor-pointer ${
+              className={`inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold transition-colors cursor-pointer ${
                 activeDesktopMenu === 'about'
                   ? 'bg-amber-50 text-amber-900'
                   : 'text-slate-700 hover:bg-slate-50 hover:text-[#0A2240]'
@@ -407,7 +417,7 @@ export function Navbar({
                     <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-indigo-600" />
                     <div>
                       <p className="text-sm font-bold text-[#0A2240]">Specialist Care Spotlight</p>
-                      <p className="text-xs text-slate-500">Couture, bedrooms &amp; sneakers</p>
+                      <p className="text-xs text-slate-500">Onsite &amp; couture craftsmanship</p>
                     </div>
                   </a>
                   <a
@@ -439,25 +449,25 @@ export function Navbar({
         </nav>
 
         {/* Action Buttons */}
-        <div className="hidden items-center gap-2.5 sm:flex">
+        <div className="hidden items-center gap-2 sm:flex">
           <a
             href={BUSINESS_INFO.whatsappBaseUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3.5 py-2.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
           >
             <MessageCircle className="h-4 w-4 text-emerald-600" />
-            WhatsApp
+            <span className="hidden xl:inline">WhatsApp</span>
           </a>
           <button
             type="button"
             onClick={onJumpToQuote}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-teal-700 to-cyan-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:from-teal-800 hover:to-cyan-800 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-95 transition-all cursor-pointer"
           >
             <Sparkles className="h-4 w-4" />
-            <span>Book / Instant Quote</span>
+            <span>Book / Quote</span>
             {selectedCount > 0 && (
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-teal-800">
+              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-[#00388B]">
                 {selectedCount}
               </span>
             )}
@@ -502,9 +512,10 @@ export function Navbar({
                       key={s.id}
                       type="button"
                       onClick={() => handleMobileServiceClick(s.id)}
-                      className="block w-full rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-800"
+                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-800"
                     >
-                      {s.title}
+                      <span>{s.title}</span>
+                      {s.priceFrom && <span className="text-[11px] text-teal-700">{s.priceFrom}</span>}
                     </button>
                   ))}
                 </div>
@@ -520,7 +531,7 @@ export function Navbar({
                 }
                 className="flex w-full items-center justify-between px-3.5 py-2.5 text-sm font-bold text-[#0A2240]"
               >
-                <span>Laundry, Dry Cleaning &amp; Garments</span>
+                <span>Laundry, Dry Cleaning &amp; Dyeing</span>
                 <ChevronDown
                   className={`h-4 w-4 transition-transform ${
                     mobileAccordion === 'garment' ? 'rotate-180 text-teal-700' : ''
@@ -534,29 +545,37 @@ export function Navbar({
                       key={s.id}
                       type="button"
                       onClick={() => handleMobileServiceClick(s.id)}
-                      className="block w-full rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-teal-50 hover:text-teal-800"
+                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-teal-50 hover:text-teal-800"
                     >
-                      {s.title}
+                      <span>{s.title}</span>
+                      {s.priceFrom && <span className="text-[11px] text-teal-700">{s.priceFrom}</span>}
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-2 pt-1">
+            <div className="grid grid-cols-3 gap-2 pt-1">
+              <a
+                href="#pricing-results"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-2.5 text-center text-xs font-bold text-emerald-800"
+              >
+                Prices &amp; Results
+              </a>
               <a
                 href="#areas"
                 onClick={() => setMobileOpen(false)}
-                className="rounded-xl border border-slate-200 px-3 py-2.5 text-center text-xs font-bold text-slate-700"
+                className="rounded-xl border border-slate-200 px-2.5 py-2.5 text-center text-xs font-bold text-slate-700"
               >
-                Gauteng Areas &amp; Hours
+                Gauteng Areas
               </a>
               <a
                 href="#reviews"
                 onClick={() => setMobileOpen(false)}
-                className="rounded-xl border border-slate-200 px-3 py-2.5 text-center text-xs font-bold text-slate-700"
+                className="rounded-xl border border-slate-200 px-2.5 py-2.5 text-center text-xs font-bold text-slate-700"
               >
-                4.9★ Reviews &amp; FAQ
+                4.9★ &amp; FAQ
               </a>
             </div>
 
@@ -574,7 +593,7 @@ export function Navbar({
                   setMobileOpen(false);
                   onJumpToQuote();
                 }}
-                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-teal-700 px-3 py-2.5 text-sm font-semibold text-white"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#00388B] px-3 py-2.5 text-sm font-semibold text-white"
               >
                 Get Quote {selectedCount > 0 ? `(${selectedCount})` : ''}
               </button>

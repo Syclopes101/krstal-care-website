@@ -223,9 +223,16 @@ export function ServicesShowcase({
                         {service.subtitle}
                       </p>
 
-                      <div className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 border border-slate-100">
-                        <Clock className={`h-3.5 w-3.5 ${theme.iconText}`} />
-                        <span>{service.turnaround}</span>
+                      <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <div className="inline-flex items-center gap-1.5 rounded-lg bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 border border-slate-100">
+                          <Clock className={`h-3.5 w-3.5 ${theme.iconText}`} />
+                          <span>{service.turnaround}</span>
+                        </div>
+                        {service.priceFrom && (
+                          <span className="inline-flex items-center rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-extrabold text-[#1E7A34] border border-emerald-200">
+                            {service.priceFrom}
+                          </span>
+                        )}
                       </div>
 
                       <p className="mt-3 text-sm leading-relaxed text-slate-600">
