@@ -83,9 +83,14 @@ export function App() {
     setDetailService(found);
 
     setTimeout(() => {
-      const el = document.getElementById(`service-${serviceId}`) ?? document.getElementById('services');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const mobileEl = document.getElementById(`service-mobile-${serviceId}`);
+      const desktopEl = document.getElementById(`service-${serviceId}`);
+      const target =
+        (mobileEl && mobileEl.offsetParent !== null ? mobileEl : null) ??
+        (desktopEl && desktopEl.offsetParent !== null ? desktopEl : null) ??
+        document.getElementById('services');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, 60);
 
@@ -115,13 +120,19 @@ export function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A]">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-[#002B6B] focus:px-4 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
       <Navbar
         selectedCount={selectedServiceIds.length}
         onJumpToQuote={jumpToQuote}
         onSelectServiceFromMenu={handleSelectServiceFromMenu}
         onSelectPillarFromMenu={handleSelectPillarFromMenu}
       />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
         <Hero
           onJumpToQuote={jumpToQuote}
           onQuickOpenService={handleSelectServiceFromMenu}
@@ -152,7 +163,11 @@ export function App() {
           onClearQuantities={clearQuantities}
         />
       </main>
-      <Footer />
+      <Footer
+        selectedCount={selectedServiceIds.length}
+        itemizedQuantities={itemizedQuantities}
+        onJumpToQuote={jumpToQuote}
+      />
       <ServiceDetailModal
         service={detailService}
         isSelected={detailService ? selectedServiceIds.includes(detailService.id) : false}

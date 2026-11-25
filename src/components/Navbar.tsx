@@ -13,8 +13,12 @@ import {
   MessageCircle,
   ArrowRight,
   Tag,
+  FolderOpen,
+  Folder,
+  ChevronRight,
 } from 'lucide-react';
 import { BUSINESS_INFO, COLOR_THEMES, SERVICE_CATALOG, type ServicePillar } from '../data/business';
+import { SocialLinks } from './SocialLinks';
 
 interface NavbarProps {
   selectedCount: number;
@@ -59,6 +63,7 @@ function getJohannesburgStatus(): { isOpen: boolean; label: string } {
 }
 
 type DesktopMenuKey = 'cleaning' | 'garment' | 'coverage' | 'about' | null;
+type MobileFolderKey = 'cleaning' | 'garment' | 'coverage' | 'guides' | null;
 
 export function Navbar({
   selectedCount,
@@ -68,7 +73,7 @@ export function Navbar({
 }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDesktopMenu, setActiveDesktopMenu] = useState<DesktopMenuKey>(null);
-  const [mobileAccordion, setMobileAccordion] = useState<DesktopMenuKey>('cleaning');
+  const [mobileFolder, setMobileFolder] = useState<MobileFolderKey>('cleaning');
   const navRef = useRef<HTMLDivElement>(null);
   const status = useMemo(() => getJohannesburgStatus(), []);
 
@@ -88,7 +93,10 @@ export function Navbar({
       }
     };
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setActiveDesktopMenu(null);
+      if (e.key === 'Escape') {
+        setActiveDesktopMenu(null);
+        setMobileOpen(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     window.addEventListener('keydown', handleEsc);
@@ -108,25 +116,36 @@ export function Navbar({
     onSelectServiceFromMenu(id);
   };
 
+  const handleMobileHashJump = (hash: string) => {
+    setMobileOpen(false);
+    const id = hash.replace('#', '');
+    setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+  };
+
   return (
     <header
       ref={navRef}
       className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-xs"
     >
       {/* Colourful Top Status & Contact Bar */}
-      <div className="bg-gradient-to-r from-[#002B6B] via-[#003D8E] to-[#1E7A34] px-4 py-1.5 text-xs text-slate-100">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+      <div className="bg-gradient-to-r from-[#002B6B] via-[#003D8E] to-[#1E7A34] px-3 py-1.5 text-[11px] sm:px-4 sm:text-xs text-slate-100">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 min-w-0">
             <span
-              className={`inline-block h-2 w-2 rounded-full ${
+              className={`inline-block h-2 w-2 shrink-0 rounded-full ${
                 status.isOpen ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-amber-400'
               }`}
             />
-            <span className="font-semibold text-white">{status.label}</span>
+            <span className="truncate font-semibold text-white">{status.label}</span>
             <span className="hidden text-sky-200/60 sm:inline">•</span>
-            <span className="hidden text-sky-100 sm:inline">{BUSINESS_INFO.shortAddress}</span>
+            <span className="hidden text-sky-100 sm:inline">100% Mobile Service</span>
           </div>
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+            <div className="hidden sm:block">
+              <SocialLinks variant="compact" />
+            </div>
             <span className="hidden lg:inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-300">
               ★ {BUSINESS_INFO.rating} / 5 ({BUSINESS_INFO.reviewCount} Google Reviews)
             </span>
@@ -139,9 +158,9 @@ export function Navbar({
             </a>
             <a
               href={BUSINESS_INFO.phoneHref}
-              className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-amber-200 transition-colors"
+              className="inline-flex items-center gap-1 font-semibold text-white hover:text-amber-200 transition-colors"
             >
-              <Phone className="h-3.5 w-3.5 text-emerald-300" />
+              <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-300" />
               {BUSINESS_INFO.phoneDisplay}
             </a>
           </div>
@@ -149,18 +168,18 @@ export function Navbar({
       </div>
 
       {/* Main Navigation Row */}
-      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-3 group shrink-0">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 sm:px-6 lg:px-8">
+        <a href="#" className="flex items-center gap-2.5 group shrink-0">
           <img
             src={`${import.meta.env.BASE_URL}images/krystal-logo.png`}
             alt="Krystal Care Cleaners logo"
-            className="h-11 w-auto sm:h-12 object-contain transition-transform group-hover:scale-105"
+            className="h-10 w-auto sm:h-12 object-contain transition-transform group-hover:scale-105"
           />
-          <div className="hidden sm:block leading-tight border-l border-slate-200 pl-3">
-            <span className="block text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#00388B]">
-              Cleaners (Pty) Ltd
+          <div className="leading-tight border-l border-slate-200 pl-2.5">
+            <span className="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] text-[#00388B]">
+              Mobile Service
             </span>
-            <span className="block text-[11px] font-semibold text-[#2E9E36]">
+            <span className="block text-[10px] sm:text-[11px] font-semibold text-[#2E9E36]">
               {BUSINESS_INFO.brandMotto}
             </span>
           </div>
@@ -449,12 +468,12 @@ export function Navbar({
         </nav>
 
         {/* Action Buttons */}
-        <div className="hidden items-center gap-2 sm:flex">
+        <div className="flex items-center gap-2">
           <a
             href={BUSINESS_INFO.whatsappBaseUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100 transition-colors"
           >
             <MessageCircle className="h-4 w-4 text-emerald-600" />
             <span className="hidden xl:inline">WhatsApp</span>
@@ -462,130 +481,210 @@ export function Navbar({
           <button
             type="button"
             onClick={onJumpToQuote}
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-95 transition-all cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-95 transition-all cursor-pointer"
           >
             <Sparkles className="h-4 w-4" />
-            <span>Book / Quote</span>
+            <span>Quote</span>
             {selectedCount > 0 && (
               <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-[#00388B]">
                 {selectedCount}
               </span>
             )}
           </button>
-        </div>
 
-        <button
-          type="button"
-          onClick={() => setMobileOpen((prev) => !prev)}
-          className="inline-flex items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden cursor-pointer"
-          aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+          <button
+            type="button"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-[#002B6B] hover:bg-slate-100 lg:hidden cursor-pointer"
+            aria-label="Toggle menu folders"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            <span>{mobileOpen ? 'Close' : 'Menu'}</span>
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Drawer with Expandable Submenus */}
+      {/* Mobile Sticky Quick-Jump Strip */}
+      <div className="border-t border-slate-100 bg-slate-50/90 px-3 py-1.5 lg:hidden">
+        <div className="no-scrollbar flex items-center gap-1.5 overflow-x-auto">
+          {[
+            { label: 'Before & After', href: '#pricing-results', accent: 'text-[#00388B]' },
+            { label: 'ZAR Prices', href: '#price-estimator', accent: 'text-[#1E7A34]' },
+            { label: 'Services (10)', href: '#services', accent: 'text-slate-700' },
+            { label: 'Gauteng Areas', href: '#areas', accent: 'text-slate-700' },
+            { label: '4.9★ Reviews', href: '#reviews', accent: 'text-amber-700' },
+            { label: 'Quote', href: '#quote', accent: 'text-[#00388B]' },
+          ].map((pill) => (
+            <a
+              key={pill.label}
+              href={pill.href}
+              className={`shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-bold shadow-2xs ${pill.accent}`}
+            >
+              {pill.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Clean Mobile Sub-Folders Drawer */}
       {mobileOpen && (
-        <div className="max-h-[80vh] overflow-y-auto border-t border-slate-200 bg-white px-4 py-4 lg:hidden">
+        <div className="max-h-[75vh] overflow-y-auto border-t border-slate-200 bg-[#F8FAFC] px-3 py-3 lg:hidden">
           <div className="space-y-2">
-            {/* Mobile Submenu: Home & Office Cleaning */}
-            <div className="rounded-xl border border-slate-200 bg-slate-50/70">
+            {/* Folder 1: Home & Office Cleaning */}
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xs">
               <button
                 type="button"
-                onClick={() =>
-                  setMobileAccordion((prev) => (prev === 'cleaning' ? null : 'cleaning'))
-                }
-                className="flex w-full items-center justify-between px-3.5 py-2.5 text-sm font-bold text-[#0A2240]"
+                aria-expanded={mobileFolder === 'cleaning'}
+                onClick={() => setMobileFolder((p) => (p === 'cleaning' ? null : 'cleaning'))}
+                className="flex w-full items-center justify-between px-3.5 py-3 text-left"
               >
-                <span>Home &amp; Office Cleaning</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-100 text-[#00388B]">
+                    {mobileFolder === 'cleaning' ? (
+                      <FolderOpen className="h-4 w-4" />
+                    ) : (
+                      <Folder className="h-4 w-4" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-xs font-extrabold text-[#002B6B]">Home &amp; Office Cleaning</p>
+                    <p className="text-[11px] text-slate-500">5 mobile onsite services</p>
+                  </div>
+                </div>
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform ${
-                    mobileAccordion === 'cleaning' ? 'rotate-180 text-teal-700' : ''
+                  className={`h-4 w-4 text-slate-400 transition-transform ${
+                    mobileFolder === 'cleaning' ? 'rotate-180 text-[#00388B]' : ''
                   }`}
                 />
               </button>
-              {mobileAccordion === 'cleaning' && (
-                <div className="border-t border-slate-200 bg-white p-2 space-y-1">
+              {mobileFolder === 'cleaning' && (
+                <div className="border-t border-slate-100 bg-slate-50/60 p-2 space-y-1">
                   {cleaningServices.map((s) => (
                     <button
                       key={s.id}
                       type="button"
                       onClick={() => handleMobileServiceClick(s.id)}
-                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-800"
+                      className="flex w-full items-center justify-between gap-2 rounded-xl bg-white px-3 py-2 text-left text-xs font-semibold text-slate-800 border border-slate-100"
                     >
-                      <span>{s.title}</span>
-                      {s.priceFrom && <span className="text-[11px] text-teal-700">{s.priceFrom}</span>}
+                      <span className="truncate">{s.title}</span>
+                      <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-bold text-[#1E7A34]">
+                        {s.priceFrom ?? 'Quote'}
+                        <ChevronRight className="h-3 w-3 text-slate-400" />
+                      </span>
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Mobile Submenu: Laundry & Garments */}
-            <div className="rounded-xl border border-slate-200 bg-slate-50/70">
+            {/* Folder 2: Laundry, Dry Cleaning & Dyeing */}
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xs">
               <button
                 type="button"
-                onClick={() =>
-                  setMobileAccordion((prev) => (prev === 'garment' ? null : 'garment'))
-                }
-                className="flex w-full items-center justify-between px-3.5 py-2.5 text-sm font-bold text-[#0A2240]"
+                aria-expanded={mobileFolder === 'garment'}
+                onClick={() => setMobileFolder((p) => (p === 'garment' ? null : 'garment'))}
+                className="flex w-full items-center justify-between px-3.5 py-3 text-left"
               >
-                <span>Laundry, Dry Cleaning &amp; Dyeing</span>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-[#1E7A34]">
+                    {mobileFolder === 'garment' ? (
+                      <FolderOpen className="h-4 w-4" />
+                    ) : (
+                      <Folder className="h-4 w-4" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-xs font-extrabold text-[#002B6B]">
+                      Laundry, Dry Cleaning &amp; Dyeing
+                    </p>
+                    <p className="text-[11px] text-slate-500">5 collection &amp; garment services</p>
+                  </div>
+                </div>
                 <ChevronDown
-                  className={`h-4 w-4 transition-transform ${
-                    mobileAccordion === 'garment' ? 'rotate-180 text-teal-700' : ''
+                  className={`h-4 w-4 text-slate-400 transition-transform ${
+                    mobileFolder === 'garment' ? 'rotate-180 text-[#1E7A34]' : ''
                   }`}
                 />
               </button>
-              {mobileAccordion === 'garment' && (
-                <div className="border-t border-slate-200 bg-white p-2 space-y-1">
+              {mobileFolder === 'garment' && (
+                <div className="border-t border-slate-100 bg-slate-50/60 p-2 space-y-1">
                   {garmentServices.map((s) => (
                     <button
                       key={s.id}
                       type="button"
                       onClick={() => handleMobileServiceClick(s.id)}
-                      className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-semibold text-slate-700 hover:bg-teal-50 hover:text-teal-800"
+                      className="flex w-full items-center justify-between gap-2 rounded-xl bg-white px-3 py-2 text-left text-xs font-semibold text-slate-800 border border-slate-100"
                     >
-                      <span>{s.title}</span>
-                      {s.priceFrom && <span className="text-[11px] text-teal-700">{s.priceFrom}</span>}
+                      <span className="truncate">{s.title}</span>
+                      <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-bold text-[#1E7A34]">
+                        {s.priceFrom ?? 'Quote'}
+                        <ChevronRight className="h-3 w-3 text-slate-400" />
+                      </span>
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="grid grid-cols-3 gap-2 pt-1">
-              <a
-                href="#pricing-results"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-2.5 text-center text-xs font-bold text-emerald-800"
+            {/* Folder 3: Prices, Coverage & Reviews */}
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xs">
+              <button
+                type="button"
+                aria-expanded={mobileFolder === 'guides'}
+                onClick={() => setMobileFolder((p) => (p === 'guides' ? null : 'guides'))}
+                className="flex w-full items-center justify-between px-3.5 py-3 text-left"
               >
-                Prices &amp; Results
-              </a>
-              <a
-                href="#areas"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-xl border border-slate-200 px-2.5 py-2.5 text-center text-xs font-bold text-slate-700"
-              >
-                Gauteng Areas
-              </a>
-              <a
-                href="#reviews"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-xl border border-slate-200 px-2.5 py-2.5 text-center text-xs font-bold text-slate-700"
-              >
-                4.9★ &amp; FAQ
-              </a>
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
+                    {mobileFolder === 'guides' ? (
+                      <FolderOpen className="h-4 w-4" />
+                    ) : (
+                      <Folder className="h-4 w-4" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-xs font-extrabold text-[#002B6B]">
+                      Prices, Gauteng Areas &amp; Reviews
+                    </p>
+                    <p className="text-[11px] text-slate-500">Quick jumps &amp; dispatch info</p>
+                  </div>
+                </div>
+                <ChevronDown
+                  className={`h-4 w-4 text-slate-400 transition-transform ${
+                    mobileFolder === 'guides' ? 'rotate-180 text-amber-700' : ''
+                  }`}
+                />
+              </button>
+              {mobileFolder === 'guides' && (
+                <div className="grid grid-cols-2 gap-1.5 border-t border-slate-100 bg-slate-50/60 p-2">
+                  {[
+                    { label: 'Before & After', href: '#pricing-results' },
+                    { label: 'ZAR Estimator', href: '#price-estimator' },
+                    { label: 'Gauteng Areas', href: '#areas' },
+                    { label: '4.9★ Reviews & FAQ', href: '#reviews' },
+                  ].map((item) => (
+                    <button
+                      key={item.href}
+                      type="button"
+                      onClick={() => handleMobileHashJump(item.href)}
+                      className="rounded-xl border border-slate-100 bg-white px-3 py-2 text-left text-xs font-bold text-[#002B6B]"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="mt-2 grid grid-cols-2 gap-2.5 pt-2 border-t border-slate-100">
+            {/* Bottom Actions inside Drawer */}
+            <div className="grid grid-cols-2 gap-2 pt-1">
               <a
                 href={BUSINESS_INFO.phoneHref}
-                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-semibold text-slate-800"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-bold text-slate-800"
               >
-                <Phone className="h-4 w-4 text-teal-700" />
-                Call Now
+                <Phone className="h-3.5 w-3.5 text-[#1E7A34]" />
+                Call 077 247 3275
               </a>
               <button
                 type="button"
@@ -593,10 +692,16 @@ export function Navbar({
                   setMobileOpen(false);
                   onJumpToQuote();
                 }}
-                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#00388B] px-3 py-2.5 text-sm font-semibold text-white"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-3 py-2.5 text-xs font-bold text-white"
               >
-                Get Quote {selectedCount > 0 ? `(${selectedCount})` : ''}
+                <Sparkles className="h-3.5 w-3.5" />
+                Instant Quote {selectedCount > 0 ? `(${selectedCount})` : ''}
               </button>
+            </div>
+
+            <div className="flex items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-3.5 py-2.5">
+              <span className="text-[11px] font-bold text-slate-500">Follow Us:</span>
+              <SocialLinks variant="light" />
             </div>
           </div>
         </div>

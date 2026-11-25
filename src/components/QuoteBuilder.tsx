@@ -140,24 +140,23 @@ export function QuoteBuilder({
   return (
     <section
       id="quote"
-      className="py-16 sm:py-24 bg-gradient-to-br from-[#ECFEFF] via-[#F1F5F9] to-[#EEF2FF] border-t border-slate-200"
+      className="py-10 sm:py-20 bg-gradient-to-br from-[#ECFEFF] via-[#F1F5F9] to-[#EEF2FF] border-t border-slate-200"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+        <div className="grid gap-6 lg:gap-10 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-xs">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xs">
               <Sparkles className="h-3.5 w-3.5" />
               Fast Booking &amp; Quote
             </span>
-            <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-[#0A2240] sm:text-4xl">
+            <h2 className="font-display mt-2.5 text-2xl sm:text-4xl font-extrabold tracking-tight text-[#0A2240]">
               Request Your Instant Quote or Mobile Booking
             </h2>
-            <p className="mt-3 text-base leading-relaxed text-slate-600">
-              Choose the services you need and send your request directly via WhatsApp or email for
-              the fastest response, or generate a booking summary for our team.
+            <p className="mt-2 text-sm sm:text-base leading-relaxed text-slate-600">
+              Choose the services you need and send your request directly via WhatsApp or email.
             </p>
 
-            <div className="mt-8 rounded-2xl border border-teal-200/80 bg-white p-6 shadow-sm">
+            <div className="mt-6 hidden lg:block rounded-2xl border border-teal-200/80 bg-white p-6 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-wider text-teal-700">
                 What helps us quote accurately
               </p>
@@ -274,10 +273,14 @@ export function QuoteBuilder({
 
                 <div className="mt-7 grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+                    <label
+                      htmlFor="quote-service-mode"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
+                    >
                       2. Service Mode
                     </label>
                     <select
+                      id="quote-service-mode"
                       value={mode}
                       onChange={(e) => setMode(e.target.value as ServiceMode)}
                       className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
@@ -289,16 +292,20 @@ export function QuoteBuilder({
                         Door-to-Door Collection &amp; Delivery
                       </option>
                       <option value="Scheduled Lenasia Ext 11 Drop-off">
-                        Scheduled Lenasia Ext 11 Drop-off (14 Dharwar St)
+                        Scheduled Lenasia Ext 11 Handover (By Appointment)
                       </option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+                    <label
+                      htmlFor="quote-frequency"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
+                    >
                       3. Frequency
                     </label>
                     <select
+                      id="quote-frequency"
                       value={frequency}
                       onChange={(e) => setFrequency(e.target.value as FrequencyType)}
                       className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
