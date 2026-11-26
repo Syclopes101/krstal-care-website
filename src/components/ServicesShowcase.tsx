@@ -109,7 +109,7 @@ export function ServicesShowcase({
 
         <div className="mt-5 sm:mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div
-            className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:inline-flex sm:rounded-2xl sm:border sm:border-slate-200 sm:bg-white sm:p-1.5 sm:shadow-xs"
+            className="no-scrollbar flex w-full max-w-full gap-1.5 overflow-x-auto pb-1 sm:w-auto sm:inline-flex sm:rounded-2xl sm:border sm:border-slate-200 sm:bg-white sm:p-1.5 sm:shadow-xs"
             role="tablist"
             aria-label="Service categories"
           >

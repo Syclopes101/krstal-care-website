@@ -67,11 +67,11 @@ export function ReviewsAndFaq() {
             mobileTab === 'reviews' ? 'block' : 'hidden lg:block'
           } mt-5 sm:mt-8`}
         >
-          <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
+          <div className="no-scrollbar mt-1 flex w-full max-w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-2 md:mt-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible">
             {REVIEW_HIGHLIGHTS.map((item, idx) => (
               <div
                 key={idx}
-                className="flex w-[80vw] max-w-sm shrink-0 snap-start flex-col justify-between rounded-2xl border border-slate-200 bg-[#F8FAFC] p-5 md:w-auto md:max-w-none md:p-6"
+                className="flex w-[84%] max-w-xs shrink-0 snap-start flex-col justify-between rounded-2xl border border-slate-200 bg-[#F8FAFC] p-5 md:w-auto md:max-w-none md:p-6"
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -102,7 +102,7 @@ export function ReviewsAndFaq() {
             mobileTab === 'faq' ? 'block' : 'hidden lg:grid'
           } mt-6 lg:mt-16 grid gap-8 lg:grid-cols-12`}
         >
-          <div className="hidden lg:block lg:col-span-4">
+          <div className="hidden min-w-0 lg:block lg:col-span-4">
             <span className="inline-block rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-700">
               Frequently Asked Questions
             </span>
@@ -124,7 +124,7 @@ export function ReviewsAndFaq() {
             </p>
           </div>
 
-          <div className="lg:col-span-8 space-y-2.5">
+          <div className="min-w-0 lg:col-span-8 space-y-2.5">
             {FAQS.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (

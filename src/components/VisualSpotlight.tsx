@@ -68,11 +68,11 @@ export function VisualSpotlight({ onSelectPreset }: VisualSpotlightProps) {
         </div>
 
         {/* Swipeable horizontal cards on mobile, 3-col grid on lg */}
-        <div className="no-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 lg:mx-0 lg:mt-10 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible lg:px-0">
+        <div className="no-scrollbar mt-6 flex w-full max-w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:mt-10 lg:grid lg:grid-cols-3 lg:gap-8 lg:overflow-visible">
           {SPOTLIGHTS.map((item) => (
             <div
               key={item.title}
-              className={`group flex w-[82vw] max-w-sm shrink-0 snap-start flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white transition-all shadow-sm hover:shadow-xl hover:shadow-slate-900/5 lg:w-auto lg:max-w-none ${item.borderAccent}`}
+              className={`group flex w-[82%] max-w-xs shrink-0 snap-start flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white transition-all shadow-sm hover:shadow-xl hover:shadow-slate-900/5 lg:w-auto lg:max-w-none ${item.borderAccent}`}
             >
               <div className="relative overflow-hidden">
                 <img

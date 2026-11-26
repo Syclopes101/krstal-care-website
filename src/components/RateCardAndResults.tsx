@@ -499,7 +499,7 @@ export function RateCardAndResults({
         {/* PART 2: OFFICIAL ZAR RATE CARD + FLYERS */}
         <div id="price-estimator" className="mt-8 lg:mt-14 grid gap-8 lg:grid-cols-12 lg:items-start">
           {/* Interactive Rate Menu & Estimator */}
-          <div className="lg:col-span-8 overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5">
+          <div className="min-w-0 lg:col-span-8 overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5">
             <div className={`h-1.5 sm:h-2 w-full bg-gradient-to-r ${theme.topBar}`} />
             <div className="p-4 sm:p-8">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -533,7 +533,7 @@ export function RateCardAndResults({
 
               {/* 4 Category Tabs (horizontal swipe on mobile) */}
               <div
-                className="no-scrollbar -mx-4 mt-4 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:mt-6 sm:flex-wrap sm:overflow-visible sm:px-0"
+                className="no-scrollbar mt-4 flex w-full max-w-full gap-1.5 overflow-x-auto pb-1 sm:mt-6 sm:flex-wrap sm:overflow-visible"
                 role="tablist"
                 aria-label="Official ZAR price categories"
               >
@@ -588,7 +588,7 @@ export function RateCardAndResults({
                   return (
                     <div
                       key={item.id}
-                      className={`flex items-center justify-between gap-2 rounded-xl sm:rounded-2xl border p-2.5 sm:p-3.5 transition-all ${
+                      className={`min-w-0 flex items-center justify-between gap-2 rounded-xl sm:rounded-2xl border p-2.5 sm:p-3.5 transition-all ${
                         qty > 0
                           ? 'border-[#1E7A34] bg-emerald-50/40 ring-1 ring-emerald-500/20'
                           : 'border-slate-200 bg-white hover:border-slate-300'
@@ -719,7 +719,7 @@ export function RateCardAndResults({
           </div>
 
           {/* Official Brand Flyers Column (Desktop only — mobile has them in the Posters tab above!) */}
-          <div className="hidden lg:block lg:col-span-4 space-y-4">
+          <div className="hidden min-w-0 lg:block lg:col-span-4 space-y-4">
             <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-md">
               <div className="flex items-center justify-between gap-2">
                 <div>

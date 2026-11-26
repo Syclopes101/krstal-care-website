@@ -174,18 +174,18 @@ export function Navbar({
       </div>
 
       {/* Main Navigation Row */}
-      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-1.5 sm:px-6 sm:py-2 lg:px-8">
         <a href="#" className="flex items-center gap-2 group min-w-0">
           <img
             src={`${import.meta.env.BASE_URL}images/krystal-logo.png`}
             alt="Krystal Care Cleaners logo"
-            className="h-9 w-auto shrink-0 sm:h-12 object-contain transition-transform group-hover:scale-105"
+            className="h-8 w-auto shrink-0 sm:h-12 object-contain transition-transform group-hover:scale-105"
           />
-          <div className="hidden xs:block sm:block leading-tight border-l border-slate-200 pl-2 min-w-0">
-            <span className="block truncate text-[9.5px] sm:text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#00388B]">
+          <div className="hidden sm:block leading-tight border-l border-slate-200 pl-2 min-w-0">
+            <span className="block truncate text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#00388B]">
               Mobile Service
             </span>
-            <span className="hidden sm:block truncate text-[11px] font-semibold text-[#2E9E36]">
+            <span className="block truncate text-[11px] font-semibold text-[#2E9E36]">
               {BUSINESS_INFO.brandMotto}
             </span>
           </div>
