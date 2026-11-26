@@ -146,7 +146,7 @@ export function ServicesShowcase({
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search mattress, saree, sneakers..."
               aria-label="Search services"
-              className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+              className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-base sm:text-sm text-slate-800 placeholder:text-slate-400 focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/15"
             />
           </div>
         </div>
@@ -206,7 +206,7 @@ export function ServicesShowcase({
                           <Icon className="h-4 w-4" />
                         </div>
                         <div className="min-w-0">
-                          <p className="truncate font-display text-sm font-bold text-[#0A2240]">
+                          <p className="font-display text-sm font-bold leading-snug text-[#0A2240]">
                             {service.title}
                           </p>
                           <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
@@ -215,7 +215,9 @@ export function ServicesShowcase({
                                 {service.priceFrom}
                               </span>
                             )}
-                            <span className="text-[10px] text-slate-600">· {service.modeTag}</span>
+                            <span className="hidden sm:inline text-[10px] text-slate-600">
+                              · {service.modeTag}
+                            </span>
                           </div>
                         </div>
                       </button>

@@ -197,26 +197,26 @@ export function QuoteBuilder({
           <div className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
-              className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5"
+              className="overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5"
             >
               <div className="h-2 w-full bg-gradient-to-r from-[#00388B] via-[#0095DA] to-[#2E9E36]" />
-              <div className="p-6 sm:p-8">
+              <div className="p-4 sm:p-8">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-display text-xl font-bold text-[#0A2240]">
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-[#0A2240]">
                     1. Select Services ({selectedServiceIds.length} selected)
                   </h3>
                   {selectedServiceIds.length > 0 && (
                     <button
                       type="button"
                       onClick={onClearServices}
-                      className="text-xs font-semibold text-slate-500 hover:text-slate-800 cursor-pointer"
+                      className="text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
                     >
                       Clear all
                     </button>
                   )}
                 </div>
 
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="no-scrollbar -mx-4 mt-3 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:gap-2 sm:overflow-visible sm:px-0">
                   {SERVICE_CATALOG.map((service) => {
                     const selected = selectedServiceIds.includes(service.id);
                     const theme = COLOR_THEMES[service.color];
@@ -224,8 +224,9 @@ export function QuoteBuilder({
                       <button
                         key={service.id}
                         type="button"
+                        aria-pressed={selected}
                         onClick={() => onToggleService(service.id)}
-                        className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
+                        className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
                           selected
                             ? `${theme.pillBg} text-white shadow-xs`
                             : 'border border-slate-200 bg-slate-50 text-slate-700 hover:border-teal-500 hover:bg-teal-50'
@@ -271,7 +272,7 @@ export function QuoteBuilder({
                   </div>
                 )}
 
-                <div className="mt-7 grid gap-4 sm:grid-cols-2">
+                <div className="mt-5 sm:mt-7 grid gap-3.5 sm:gap-4 sm:grid-cols-2">
                   <div>
                     <label
                       htmlFor="quote-service-mode"
@@ -283,7 +284,7 @@ export function QuoteBuilder({
                       id="quote-service-mode"
                       value={mode}
                       onChange={(e) => setMode(e.target.value as ServiceMode)}
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     >
                       <option value="Mobile Onsite Cleaning (We Come to You)">
                         Mobile Onsite Cleaning (We Come to You)
@@ -308,7 +309,7 @@ export function QuoteBuilder({
                       id="quote-frequency"
                       value={frequency}
                       onChange={(e) => setFrequency(e.target.value as FrequencyType)}
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     >
                       <option value="Once-off Service">Once-off Service</option>
                       <option value="Weekly / Bi-weekly Regular">Weekly / Bi-weekly Regular</option>
@@ -319,13 +320,17 @@ export function QuoteBuilder({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+                    <label
+                      htmlFor="quote-suburb"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
+                    >
                       4. Johannesburg / Gauteng Area
                     </label>
                     <select
+                      id="quote-suburb"
                       value={suburb}
                       onChange={(e) => setSuburb(e.target.value)}
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm font-medium text-slate-900 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     >
                       {SUBURBS.map((area) => (
                         <option key={area} value={area}>
@@ -338,7 +343,7 @@ export function QuoteBuilder({
                   <div>
                     <label
                       htmlFor="quote-date"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
                     >
                       Preferred Day / Turnaround
                     </label>
@@ -348,14 +353,14 @@ export function QuoteBuilder({
                       value={preferredDate}
                       onChange={(e) => setPreferredDate(e.target.value)}
                       placeholder="e.g. Saturday morning or ASAP"
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="quote-name"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
                     >
                       Your Name
                     </label>
@@ -366,14 +371,14 @@ export function QuoteBuilder({
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Fatima Patel"
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="quote-phone"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
                     >
                       Mobile / WhatsApp Number
                     </label>
@@ -384,14 +389,14 @@ export function QuoteBuilder({
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. 082 123 4567"
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     />
                   </div>
 
                   <div className="sm:col-span-2">
                     <label
                       htmlFor="quote-notes"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-500"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-600"
                     >
                       Item Details &amp; Notes (Optional)
                     </label>
@@ -401,7 +406,7 @@ export function QuoteBuilder({
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="e.g. 1x L-shaped fabric couch, 1x Queen mattress, 2x Indian outfits, 2 pairs of sneakers..."
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:border-teal-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600/15"
                     />
                   </div>
                 </div>

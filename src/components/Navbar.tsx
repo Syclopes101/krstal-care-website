@@ -138,7 +138,12 @@ export function Navbar({
                 status.isOpen ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' : 'bg-amber-400'
               }`}
             />
-            <span className="truncate font-semibold text-white">{status.label}</span>
+            <span className="truncate font-semibold text-white sm:hidden">
+              {status.isOpen ? 'Open Now' : 'Opens 8 AM'} · Mobile
+            </span>
+            <span className="hidden truncate font-semibold text-white sm:inline">
+              {status.label}
+            </span>
             <span className="hidden text-sky-200/60 sm:inline">•</span>
             <span className="hidden text-sky-100 sm:inline">100% Mobile Service</span>
           </div>
@@ -161,7 +166,8 @@ export function Navbar({
               className="inline-flex items-center gap-1 font-semibold text-white hover:text-amber-200 transition-colors"
             >
               <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-emerald-300" />
-              {BUSINESS_INFO.phoneDisplay}
+              <span className="sm:hidden">{BUSINESS_INFO.phoneLocal}</span>
+              <span className="hidden sm:inline">{BUSINESS_INFO.phoneDisplay}</span>
             </a>
           </div>
         </div>
@@ -169,17 +175,17 @@ export function Navbar({
 
       {/* Main Navigation Row */}
       <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2.5 group shrink-0">
+        <a href="#" className="flex items-center gap-2 group min-w-0">
           <img
             src={`${import.meta.env.BASE_URL}images/krystal-logo.png`}
             alt="Krystal Care Cleaners logo"
-            className="h-10 w-auto sm:h-12 object-contain transition-transform group-hover:scale-105"
+            className="h-9 w-auto shrink-0 sm:h-12 object-contain transition-transform group-hover:scale-105"
           />
-          <div className="leading-tight border-l border-slate-200 pl-2.5">
-            <span className="block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] text-[#00388B]">
+          <div className="hidden xs:block sm:block leading-tight border-l border-slate-200 pl-2 min-w-0">
+            <span className="block truncate text-[9.5px] sm:text-[11px] font-extrabold uppercase tracking-[0.08em] text-[#00388B]">
               Mobile Service
             </span>
-            <span className="block text-[10px] sm:text-[11px] font-semibold text-[#2E9E36]">
+            <span className="hidden sm:block truncate text-[11px] font-semibold text-[#2E9E36]">
               {BUSINESS_INFO.brandMotto}
             </span>
           </div>
