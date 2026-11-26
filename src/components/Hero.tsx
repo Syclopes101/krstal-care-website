@@ -37,9 +37,9 @@ export function Hero({ onJumpToQuote, onQuickOpenService }: HeroProps) {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-6">
-            <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-teal-200 bg-white/95 px-3 py-1 text-[11px] sm:text-xs font-semibold text-teal-900 shadow-xs">
+        <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-12 lg:gap-10">
+          <div className="min-w-0 lg:col-span-6">
+            <div className="inline-flex max-w-full flex-wrap items-center gap-1.5 sm:gap-2 rounded-full border border-teal-200 bg-white/95 px-3 py-1 text-[11px] sm:text-xs font-semibold text-teal-900 shadow-xs">
               <span className="inline-flex items-center gap-1 text-amber-600">
                 <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 <span className="font-bold text-[#00388B]">{BUSINESS_INFO.rating} / 5</span>
@@ -47,10 +47,10 @@ export function Hero({ onJumpToQuote, onQuickOpenService }: HeroProps) {
               <span className="text-slate-300">|</span>
               <span>{BUSINESS_INFO.reviewCount} Google Reviews</span>
               <span className="text-slate-300">|</span>
-              <span className="font-bold text-[#2E9E36]">100% Mobile Service</span>
+              <span className="font-bold text-[#2E9E36]">100% Mobile</span>
             </div>
 
-            <h1 className="font-display mt-4 sm:mt-6 text-[1.85rem] leading-[1.12] font-extrabold tracking-tight text-[#002B6B] sm:text-5xl lg:text-[3.15rem] lg:leading-[1.08]">
+            <h1 className="font-display mt-3.5 sm:mt-6 text-[1.65rem] leading-[1.15] font-extrabold tracking-tight text-[#002B6B] sm:text-5xl lg:text-[3.15rem] lg:leading-[1.08]">
               A Cleaner Space, A Better Feeling —{' '}
               <span className="bg-gradient-to-r from-[#00388B] via-[#0095DA] to-[#2E9E36] bg-clip-text text-transparent">
                 Bring Colour Back to Life.
@@ -64,11 +64,11 @@ export function Hero({ onJumpToQuote, onQuickOpenService }: HeroProps) {
             </p>
 
             {/* Horizontal swipeable quick service pills on mobile, wrapped on desktop */}
-            <div className="mt-4 sm:mt-6">
+            <div className="mt-4 sm:mt-6 w-full max-w-full">
               <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 Tap a service for details &amp; ZAR rates:
               </p>
-              <div className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
+              <div className="no-scrollbar mt-2 flex w-full max-w-full gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible">
                 {QUICK_SERVICES.map((item) => (
                   <button
                     key={item.id}
@@ -115,7 +115,7 @@ export function Hero({ onJumpToQuote, onQuickOpenService }: HeroProps) {
           </div>
 
           {/* Authentic Work Photo Collage */}
-          <div className="lg:col-span-6">
+          <div className="min-w-0 lg:col-span-6">
             <div className="relative grid grid-cols-12 gap-2.5 sm:gap-3 rounded-2xl sm:rounded-3xl border-2 border-white bg-white/95 p-2.5 sm:p-3 shadow-xl shadow-sky-950/10 ring-1 ring-slate-200/80">
               <div className="col-span-7 relative overflow-hidden rounded-xl sm:rounded-2xl">
                 <img

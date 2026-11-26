@@ -49,13 +49,13 @@ export function HowItWorks() {
           </p>
         </div>
 
-        <div className="no-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-3.5 overflow-x-auto px-4 pb-1 md:mx-0 md:mt-8 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0">
+        <div className="no-scrollbar mt-6 flex w-full max-w-full snap-x snap-mandatory gap-3.5 overflow-x-auto pb-1 md:mt-8 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible">
           {STEPS.map((item) => {
             const Icon = item.icon;
             return (
               <div
                 key={item.step}
-                className="relative w-[76vw] max-w-xs shrink-0 snap-start rounded-2xl border border-white/15 bg-white/10 p-4 sm:p-6 backdrop-blur-md md:w-auto md:max-w-none hover:bg-white/15 transition-colors"
+                className="relative w-[78%] max-w-xs shrink-0 snap-start rounded-2xl border border-white/15 bg-white/10 p-4 sm:p-6 backdrop-blur-md md:w-auto md:max-w-none hover:bg-white/15 transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <div

@@ -57,7 +57,7 @@ export function ServiceAreasAndHours() {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-12">
-          <div className={`lg:col-span-7 ${mobilePanel === 'areas' ? 'block' : 'hidden lg:block'}`}>
+          <div className={`min-w-0 lg:col-span-7 ${mobilePanel === 'areas' ? 'block' : 'hidden lg:block'}`}>
             <div className="hidden lg:block">
               <span className="inline-block rounded-full bg-sky-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-sky-800 border border-sky-200">
                 Gauteng Mobile Coverage
@@ -97,7 +97,7 @@ export function ServiceAreasAndHours() {
           </div>
 
           <div
-            className={`lg:col-span-5 ${mobilePanel === 'dispatch' ? 'block' : 'hidden lg:block'}`}
+            className={`min-w-0 lg:col-span-5 ${mobilePanel === 'dispatch' ? 'block' : 'hidden lg:block'}`}
           >
             <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-teal-200/80 bg-white shadow-lg shadow-teal-950/5">
               <div className="bg-gradient-to-r from-[#0A2240] to-teal-700 px-5 py-4 text-white sm:px-8 sm:py-5">

@@ -144,7 +144,7 @@ export function QuoteBuilder({
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:gap-10 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#00388B] to-[#1E7A34] px-3 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white shadow-xs">
               <Sparkles className="h-3.5 w-3.5" />
               Fast Booking &amp; Quote
@@ -194,10 +194,10 @@ export function QuoteBuilder({
             </div>
           </div>
 
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <form
               onSubmit={handleSubmit}
-              className="overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5"
+              className="w-full max-w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5"
             >
               <div className="h-2 w-full bg-gradient-to-r from-[#00388B] via-[#0095DA] to-[#2E9E36]" />
               <div className="p-4 sm:p-8">
@@ -216,7 +216,7 @@ export function QuoteBuilder({
                   )}
                 </div>
 
-                <div className="no-scrollbar -mx-4 mt-3 flex gap-1.5 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:gap-2 sm:overflow-visible sm:px-0">
+                <div className="no-scrollbar mt-3 flex w-full max-w-full gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:gap-2 sm:overflow-visible">
                   {SERVICE_CATALOG.map((service) => {
                     const selected = selectedServiceIds.includes(service.id);
                     const theme = COLOR_THEMES[service.color];
@@ -273,7 +273,7 @@ export function QuoteBuilder({
                 )}
 
                 <div className="mt-5 sm:mt-7 grid gap-3.5 sm:gap-4 sm:grid-cols-2">
-                  <div>
+                  <div className="min-w-0">
                     <label
                       htmlFor="quote-service-mode"
                       className="block text-xs font-bold uppercase tracking-wider text-slate-600"
