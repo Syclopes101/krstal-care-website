@@ -35,19 +35,19 @@ export function ServiceDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-slate-950/60 p-0 sm:p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="service-modal-title"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white shadow-2xl border border-slate-200"
+        className="relative max-h-[88vh] sm:max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-white shadow-2xl border border-slate-200"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={`h-2.5 w-full bg-gradient-to-r ${theme.topBar}`} />
+        <div className={`h-2 sm:h-2.5 w-full bg-gradient-to-r ${theme.topBar}`} />
 
-        <div className="p-6 sm:p-8">
+        <div className="p-5 sm:p-8">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="flex flex-wrap items-center gap-2">

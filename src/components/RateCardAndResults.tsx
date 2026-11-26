@@ -594,11 +594,11 @@ export function RateCardAndResults({
                           : 'border-slate-200 bg-white hover:border-slate-300'
                       }`}
                     >
-                      <div className="min-w-0">
-                        <p className="truncate text-xs sm:text-sm font-bold text-[#002B6B]">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs sm:text-sm font-bold leading-snug text-[#002B6B]">
                           {item.name}
                         </p>
-                        <div className="mt-0.5 flex items-center gap-1.5">
+                        <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
                           <span
                             className={`text-xs sm:text-sm font-extrabold ${
                               isQuoteOnly ? 'text-[#00388B]' : 'text-[#1E7A34]'
@@ -607,7 +607,7 @@ export function RateCardAndResults({
                             {item.priceLabel}
                           </span>
                           {item.unitNote && (
-                            <span className="truncate text-[10px] sm:text-[11px] text-slate-400">
+                            <span className="text-[10px] sm:text-[11px] text-slate-500">
                               · {item.unitNote}
                             </span>
                           )}
