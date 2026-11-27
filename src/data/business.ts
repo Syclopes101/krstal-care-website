@@ -154,7 +154,7 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
     id: 'facebook',
     name: 'Facebook',
     handle: 'Krystal Care Cleaners',
-    url: null,
+    url: 'https://www.facebook.com/share/1DH2CbebRZ/',
   },
   {
     id: 'tiktok',
