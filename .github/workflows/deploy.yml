@@ -1,4 +1,4 @@
-name: Deploy Website to GitHub Pages
+name: Verify Build & Optional Pages Deploy
 
 on:
   push:
@@ -27,16 +27,20 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-      - name: Build
+      - name: Verify production build (root)
+        run: npm run build
+      - name: Verify production build (subpath)
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run build
       - name: Upload artifact
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
   deploy:
+    if: github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
