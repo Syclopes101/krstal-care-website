@@ -148,7 +148,7 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
     id: 'instagram',
     name: 'Instagram',
     handle: '@krystalcarecleaners',
-    url: null,
+    url: 'https://www.instagram.com/krystalcarecleaners/',
   },
   {
     id: 'facebook',
@@ -160,7 +160,7 @@ export const SOCIAL_LINKS: SocialLinkItem[] = [
     id: 'tiktok',
     name: 'TikTok',
     handle: '@krystalcarecleaners',
-    url: null,
+    url: 'https://www.tiktok.com/@krystalcarecleaners',
   },
 ];
 
